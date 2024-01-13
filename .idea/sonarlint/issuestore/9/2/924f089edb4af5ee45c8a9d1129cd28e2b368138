@@ -1,0 +1,16 @@
+
+l
+java:S1192"JDefine a constant instead of duplicating this literal "ÑÑ‚Ñ1-1" 3 times.(œñì¨ÿÿÿÿÿ8¶¯Å÷Ï1
+7
+java:S1220""Move this file to a named package.8¶¯Å÷Ï1
+L	java:S106"+Replace this use of System.out by a logger.(‚àŠıÿÿÿÿ8¿¯Å÷Ï1
+L	java:S106!"+Replace this use of System.out by a logger.(İëŠúÿÿÿÿ8À¯Å÷Ï1
+]	java:S125""<This block of commented-out lines of code should be removed.(ÜĞˆÔıÿÿÿÿ8À¯Å÷Ï1
+L	java:S106("+Replace this use of System.out by a logger.(Ôğ¦Ìúÿÿÿÿ8Á¯Å÷Ï1
+G	java:S106*"+Replace this use of System.out by a logger.(şø¹‰8Á¯Å÷Ï1
+G	java:S106,"+Replace this use of System.out by a logger.(è˜·û8Á¯Å÷Ï1
+G	java:S106."+Replace this use of System.out by a logger.(şø¹‰8Â¯Å÷Ï1
+G	java:S1060"+Replace this use of System.out by a logger.(€…½Æ8Â¯Å÷Ï1
+R
+java:S22091"5Change this instance-reference to a static reference.(áÒÄ8Â¯Å÷Ï1
+G	java:S1062"+Replace this use of System.out by a logger.(şø¹‰8Ã¯Å÷Ï1
