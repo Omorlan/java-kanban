@@ -1,4 +1,4 @@
-package Sprint4.Tasks;
+package sprint4.tasks;
 
 import java.util.ArrayList;
 
@@ -8,19 +8,14 @@ public class Epic extends Task {
 
     public Epic(String name, String description) {
         super(name, description, null);
-
         subTaskIds = new ArrayList<>();
         this.type = TaskType.EPIC;
-        this.status = status;
+        this.status = TaskStatus.NEW;
 
     }
 
     public ArrayList<Integer> getSubTaskIds() {
         return subTaskIds;
-    }
-
-    public void setSubTaskIds(ArrayList<Integer> subTaskIds) {
-        this.subTaskIds = subTaskIds;
     }
 
     public void addSubTaskId(int subId) {
@@ -31,6 +26,9 @@ public class Epic extends Task {
         if (subTaskIds.contains(subId)) {
             subTaskIds.remove(Integer.valueOf(subId));
         }
+    }
+    public void removeAllSubtasks(){
+        subTaskIds.clear();
     }
 
     @Override

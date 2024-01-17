@@ -1,7 +1,9 @@
-package Sprint4.Tasks;
+package sprint4.tasks;
 
 
-import Sprint4.Manager.TaskManager;
+import sprint4.manager.TaskManager;
+
+import java.util.Objects;
 
 public class Task {
 
@@ -12,7 +14,15 @@ public class Task {
     protected TaskType type;
 
     public Task(String name, String description, TaskStatus status) {
-        this.id = TaskManager.generateTaskId();
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.type = TaskType.TASK;
+    }
+
+    public Task(int id, String name, String description, TaskStatus status) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.status = status;
@@ -49,6 +59,19 @@ public class Task {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

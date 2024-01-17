@@ -1,4 +1,4 @@
-package Sprint4.Tasks;
+package sprint4.tasks;
 
 public class SubTask extends Task {
     private Epic epic;  // Идентификатор эпика, к которому относится подзадача
@@ -7,7 +7,12 @@ public class SubTask extends Task {
         super(name, description, status);
         this.epic = epic;
         this.type = TaskType.SUBTASK;
-        epic.addSubTaskId(id);
+    }
+    public SubTask(int id, String name, String description, TaskStatus status, Epic epic) {
+        super(name, description, status);
+        this.id=id;
+        this.epic = epic;
+        this.type = TaskType.SUBTASK;
     }
 
     public Epic getEpic() {

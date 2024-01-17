@@ -1,4 +1,4 @@
-package Sprint4.Tasks;
+package sprint4.tasks;
 
 public enum TaskStatus {
     NEW,
