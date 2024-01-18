@@ -18,18 +18,6 @@ public class TaskManager {
     private Map<Integer, SubTask> subTaskMap = new HashMap<>(); //коллекция для хранения подзадач
     private Map<Integer, Epic> epicMap = new HashMap<>(); //коллекция для хранения эпиков
 
-    public Map<Integer, Task> getTaskMap() {
-        return taskMap;
-    }
-
-    public Map<Integer, SubTask> getSubTaskMap() {
-        return subTaskMap;
-    }
-
-    public Map<Integer, Epic> getEpicMap() {
-        return epicMap;
-    }
-
     /*
      a. Получение списка всех задач.
      */
@@ -117,7 +105,6 @@ public class TaskManager {
         int key = updatedSubTask.getId();
         subTaskMap.put(key, updatedSubTask); //обновляем сабтаску
         Epic epic = updatedSubTask.getEpic();
-        subTaskMap.put(key, updatedSubTask);
         updateEpicStatusBySubTasks(epic); //обновляем статус эпика
     }
 
@@ -135,16 +122,14 @@ public class TaskManager {
     }
 
     public void removeSubTaskById(int id) {
-        SubTask subTaskToRemove = subTaskMap.get(id);
-        subTaskMap.remove(id);
+        SubTask subTaskToRemove = subTaskMap.remove(id);
         Epic epic = subTaskToRemove.getEpic();
         epic.removeSubTaskId(id);
         updateEpicStatusBySubTasks(epic);
     }
 
     public void removeEpicById(int id) {
-        Epic epicToRemove = epicMap.get(id);
-        epicMap.remove(id);
+        Epic epicToRemove = epicMap.remove(id);
         subTaskMap.values().removeIf(subTask -> subTask.getEpic() == epicToRemove);
     }
 

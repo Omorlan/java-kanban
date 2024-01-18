@@ -1,8 +1,5 @@
 package sprint4.tasks;
 
-
-import sprint4.manager.TaskManager;
-
 import java.util.Objects;
 
 public class Task {
@@ -14,7 +11,6 @@ public class Task {
     protected TaskType type;
 
     public Task(String name, String description, TaskStatus status) {
-        this.id = id;
         this.name = name;
         this.description = description;
         this.status = status;
