@@ -25,8 +25,8 @@ public class InMemoryTaskManagerTest {
         assertEquals(task, retrievedTask);
 
         // Проверяем, что эта задача также добавлена в историю
-        assertEquals(1, taskManager.getHistory().size());
-        assertEquals(task, taskManager.getHistory().get(0));
+        assertEquals(1, taskManager.getHistory().size(),"Задача не добавленна в историю");
+        assertEquals(task, taskManager.getHistory().get(0),"Задача не добавленна в историю");
     }
 
     @Test
@@ -42,7 +42,7 @@ public class InMemoryTaskManagerTest {
 
         // Удаляем задачу и проверяем, что онабыла удалена
         taskManager.removeTaskById(task.getId());
-        assertNull(taskManager.getTaskById(task.getId()));
+        assertNull(taskManager.getTaskById(task.getId()),"Задача не была удалена");
 
     }
     @Test
@@ -55,18 +55,21 @@ public class InMemoryTaskManagerTest {
         taskManager.createNewTask(task);
         taskManager.createNewEpic(epic);
 
-        assertEquals(task, taskManager.getTaskById(task.getId()));
-        assertEquals(epic, taskManager.getEpicById(epic.getId()));
+        assertEquals(task, taskManager.getTaskById(task.getId()),"Задача не найдена по id");
+        assertEquals(epic, taskManager.getEpicById(epic.getId()),"Задача не найдена по id");
     }
     @Test
     void testInMemoryTaskManagerUpdateEpicStatus(){
         InMemoryTaskManager taskManager = new InMemoryTaskManager();
         Epic epic = new Epic("Epic", "Description");
         taskManager.createNewEpic(epic);
-        assertEquals(TaskStatus.NEW,epic.getStatus());
+        assertEquals(TaskStatus.NEW,epic.getStatus(),"Статус только созданного эпика!=NEW");
         SubTask subTask1 = new SubTask(1,"SubTusk 1","Description",TaskStatus.DONE ,epic);
         taskManager.createNewSubTask(subTask1);
-        assertEquals(TaskStatus.DONE,epic.getStatus());
+        assertEquals(TaskStatus.DONE,epic.getStatus(),"Статус эпика с одной подзадчей со статусом DONE != DONE");
+        SubTask subTask2 = new SubTask(2,"SubTusk 1","Description",TaskStatus.NEW ,epic);
+        taskManager.createNewSubTask(subTask2);
+        assertEquals(TaskStatus.IN_PROGRESS,epic.getStatus(),"Статус эпика с одной подзадчей не со статусом DONE != IN_PROGRESS");
     }
 
 }

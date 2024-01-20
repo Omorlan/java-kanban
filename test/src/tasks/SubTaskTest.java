@@ -9,6 +9,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SubTaskTest {
     @Test
+    void testTaskInheritanceEqualityById() {
+        Epic epic = new Epic("Epic", "Description");
+        SubTask subTask1 = new SubTask("Epic1", "Description1",TaskStatus.DONE,epic);
+        SubTask subTask2 = new SubTask("Epic2", "Description2",TaskStatus.DONE,epic);
+
+        subTask1.setId(1);
+        subTask2.setId(1);
+
+        assertEquals( subTask1,  subTask2, "Две задачи с одинаковым id для менеджера не выглядят как одна и та же.");
+    }
+
+    @Test
     public void testCreateSubTask() {
         Epic epic = new Epic("EpicName", "Description");
         SubTask subTask = new SubTask("SubTaskName", "Description", TaskStatus.IN_PROGRESS, epic);
@@ -16,7 +28,7 @@ public class SubTaskTest {
         assertEquals("SubTaskName", subTask.getName());
         assertEquals("Description", subTask.getDescription());
         assertEquals(TaskStatus.IN_PROGRESS, subTask.getStatus());
-        assertEquals(epic, subTask.getEpic());
+        assertEquals(epic, subTask.getEpic(),"Новая сабтаска не была создана");
     }
 
 

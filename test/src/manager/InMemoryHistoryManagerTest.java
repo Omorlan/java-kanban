@@ -22,9 +22,9 @@ public class InMemoryHistoryManagerTest {
         historyManager.add(subTask1);
 
         // ѕолучаем историю и провер€ем, что она содержит добавленные задачи
-        assertEquals(2, historyManager.getHistory().size());
-        assertEquals(task1, historyManager.getHistory().get(0));
-        assertEquals(subTask1, historyManager.getHistory().get(1));
+        assertEquals(2, historyManager.getHistory().size(),"»стори€ не добавилась");
+        assertEquals(task1, historyManager.getHistory().get(0),"»стори€ не содержит добавленную задачу 1");
+        assertEquals(subTask1, historyManager.getHistory().get(1),"»стори€ не содержит добавленную задачу 2");
     }
 
     @Test

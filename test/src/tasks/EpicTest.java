@@ -16,7 +16,7 @@ public class EpicTest {
         epic1.setId(1);
         epic2.setId(1);
 
-        assertEquals(epic1, epic2);
+        assertEquals(epic1, epic2, "Две задачи с одинаковым id для менеджера не выглядят как одна и та же.");
     }
 
 
@@ -27,7 +27,7 @@ public class EpicTest {
         assertEquals("EpicName", epic.getName());
         assertEquals("Description", epic.getDescription());
         assertEquals(TaskStatus.NEW, epic.getStatus());
-        assertTrue(epic.getSubTaskIds().isEmpty());
+        assertTrue(epic.getSubTaskIds().isEmpty(),"эпик не был создан");
     }
 
     @Test
