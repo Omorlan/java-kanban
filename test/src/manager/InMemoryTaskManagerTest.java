@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import sprint4.manager.InMemoryTaskManager;
 import sprint4.manager.TaskManager;
 import sprint4.tasks.Epic;
+import sprint4.tasks.SubTask;
 import sprint4.tasks.Task;
 import sprint4.tasks.TaskStatus;
 
@@ -57,6 +58,15 @@ public class InMemoryTaskManagerTest {
         assertEquals(task, taskManager.getTaskById(task.getId()));
         assertEquals(epic, taskManager.getEpicById(epic.getId()));
     }
-
+    @Test
+    void testInMemoryTaskManagerUpdateEpicStatus(){
+        InMemoryTaskManager taskManager = new InMemoryTaskManager();
+        Epic epic = new Epic("Epic", "Description");
+        taskManager.createNewEpic(epic);
+        assertEquals(TaskStatus.NEW,epic.getStatus());
+        SubTask subTask1 = new SubTask(1,"SubTusk 1","Description",TaskStatus.DONE ,epic);
+        taskManager.createNewSubTask(subTask1);
+        assertEquals(TaskStatus.DONE,epic.getStatus());
+    }
 
 }
