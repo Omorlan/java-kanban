@@ -3,167 +3,66 @@ package sprint4.manager;
 import sprint4.tasks.Epic;
 import sprint4.tasks.SubTask;
 import sprint4.tasks.Task;
-import sprint4.tasks.TaskStatus;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class TaskManager {
-    private int taskIdCounter = 0; // Статический счетчик для генерации идентификаторов
+public interface TaskManager {
+    /*
+         a. Получение списка всех задач.
+         */
+    List<Task> getAllTasks();
 
+    List<Task> getAllSubTasks();
 
-    private Map<Integer, Task> taskMap = new HashMap<>(); //коллекция для хранения задач
-    private Map<Integer, SubTask> subTaskMap = new HashMap<>(); //коллекция для хранения подзадач
-    private Map<Integer, Epic> epicMap = new HashMap<>(); //коллекция для хранения эпиков
+    List<Task> getAllEpics();
 
     /*
-     a. Получение списка всех задач.
-     */
-    public List<Task> getAllTasks() {
-        return new ArrayList<>(taskMap.values());
-    }
+         b. Удаление всех задач.
+         */
+    void removeAllTasks();
 
-    public List<Task> getAllSubTasks() {
-        return new ArrayList<>(subTaskMap.values());
-    }
+    void removeAllSubTasks();
 
-    public List<Task> getAllEpics() {
-        return new ArrayList<>(epicMap.values());
-    }
+    void removeAllEpics();
 
     /*
-     b. Удаление всех задач.
-     */
-    public void removeAllTasks() {
-        taskMap.clear();
-    }
+         c. Получение по идентификатору.
+         */
+    Task getTaskById(int id);
 
-    public void removeAllSubTasks() {
-        subTaskMap.clear();
-        for (Epic epic : epicMap.values()) {
-            epic.removeAllSubtasks();
-            updateEpicStatusBySubTasks(epic);
-        }
-    }
+    Epic getEpicById(int id);
 
-    public void removeAllEpics() {
-        epicMap.clear();
-        subTaskMap.clear();
-    }
-
+    SubTask getSubTaskById(int id);
 
     /*
-     c. Получение по идентификатору.
-     */
-    public Task getTaskById(int id) {
-        return taskMap.get(id);
-    }
+         d. Создание. Сам объект должен передаваться в качестве параметра.
+         */
+    void createNewTask(Task task);
 
-    public Epic getEpicById(int id) {
-        return epicMap.get(id);
-    }
+    void createNewSubTask(SubTask subTask);
 
-    public SubTask getSubTaskById(int id) {
-        return subTaskMap.get(id);
-    }
+    void createNewEpic(Epic epic);
 
     /*
-     d. Создание. Сам объект должен передаваться в качестве параметра.
-     */
-    public void createNewTask(Task task) {
-        task.setId(generateTaskId());
-        taskMap.put(task.getId(), task);
-    }
+         e. Обновление. Новая версия объекта с верным идентификатором передаётся в виде параметра.
+         */
+    void updateTask(Task updatedTask);
 
-    public void createNewSubTask(SubTask subTask) {
-        subTask.setId(generateTaskId());
-        subTaskMap.put(subTask.getId(), subTask);
-        Epic epic = subTask.getEpic();
-        epic.addSubTaskId(subTask.getId());
-        updateEpicStatusBySubTasks(epic);
+    void updateSubTask(SubTask updatedSubTask);
 
-
-    }
-
-    public void createNewEpic(Epic epic) {
-        epic.setId(generateTaskId());
-        epicMap.put(epic.getId(), epic);
-    }
+    void updateEpic(Epic updatedEpic);
 
     /*
-     e. Обновление. Новая версия объекта с верным идентификатором передаётся в виде параметра.
-     */
-    public void updateTask(Task updatedTask) {
-        int key = updatedTask.getId();
-        taskMap.put(key, updatedTask);
+         f. Удаление по идентификатору.
+         */
+    void removeTaskById(int id);
 
-    }
+    void removeSubTaskById(int id);
 
-    public void updateSubTask(SubTask updatedSubTask) {
-        int key = updatedSubTask.getId();
-        subTaskMap.put(key, updatedSubTask); //обновляем сабтаску
-        Epic epic = updatedSubTask.getEpic();
-        updateEpicStatusBySubTasks(epic); //обновляем статус эпика
-    }
+    void removeEpicById(int id);
 
-    public void updateEpic(Epic updatedEpic) {
-        int key = updatedEpic.getId();
-        epicMap.put(key, updatedEpic);
-    }
+    List<SubTask> getSubTasksOfEpic(Epic epic);
 
-    /*
-     f. Удаление по идентификатору.
-     */
-    public void removeTaskById(int id) {
-        taskMap.remove(id);
+    List<Task> getHistory();
 
-    }
-
-    public void removeSubTaskById(int id) {
-        SubTask subTaskToRemove = subTaskMap.remove(id);
-        Epic epic = subTaskToRemove.getEpic();
-        epic.removeSubTaskId(id);
-        updateEpicStatusBySubTasks(epic);
-    }
-
-    public void removeEpicById(int id) {
-        Epic epicToRemove = epicMap.remove(id);
-        subTaskMap.values().removeIf(subTask -> subTask.getEpic() == epicToRemove);
-    }
-
-    // Метод для получения нового уникального идентификатора задачи
-    private int generateTaskId() {
-        return taskIdCounter++;
-    }
-
-    public List<SubTask> getSubTasksOfEpic(Epic epic) {
-        List<SubTask> subTasksList = new ArrayList<>();
-        if (epic != null) {
-            for (Integer subTaskId : epic.getSubTaskIds()) {
-                SubTask subTask = subTaskMap.get(subTaskId);
-                if (subTask != null) {
-                    subTasksList.add(subTask);
-                }
-            }
-        }
-        return subTasksList;
-    }
-
-    private void updateEpicStatusBySubTasks(Epic epic) {
-        boolean allSubTasksDone = true;
-        for (Integer subTaskId : epic.getSubTaskIds()) {
-            SubTask subTask = subTaskMap.get(subTaskId);
-            if (subTask.getStatus() != TaskStatus.DONE) {
-                allSubTasksDone = false;
-                break;
-            }
-        }
-        if (allSubTasksDone) {
-            epic.setStatus(TaskStatus.DONE);
-        } else {
-            epic.setStatus(TaskStatus.IN_PROGRESS);
-        }
-    }
 }
