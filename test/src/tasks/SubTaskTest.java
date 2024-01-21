@@ -11,13 +11,15 @@ public class SubTaskTest {
     @Test
     void testTaskInheritanceEqualityById() {
         Epic epic = new Epic("Epic", "Description");
-        SubTask subTask1 = new SubTask("Epic1", "Description1",TaskStatus.DONE,epic);
-        SubTask subTask2 = new SubTask("Epic2", "Description2",TaskStatus.DONE,epic);
+        Epic anotherEpic = new Epic("Epic", "Description");
+        SubTask subTask1 = new SubTask("Subtask", "Description1", TaskStatus.DONE, epic);
+        SubTask subTask2 = new SubTask("Абсолютно,разительно другая сабтаска",
+                "И описание у нее такое необычное, даже по эпику не соседи", TaskStatus.NEW, anotherEpic);
 
         subTask1.setId(1);
         subTask2.setId(1);
 
-        assertEquals( subTask1,  subTask2, "Две задачи с одинаковым id для менеджера не выглядят как одна и та же.");
+        assertEquals(subTask1, subTask2, "Две задачи с одинаковым id для менеджера не выглядят как одна и та же.");
     }
 
     @Test
@@ -28,7 +30,7 @@ public class SubTaskTest {
         assertEquals("SubTaskName", subTask.getName());
         assertEquals("Description", subTask.getDescription());
         assertEquals(TaskStatus.IN_PROGRESS, subTask.getStatus());
-        assertEquals(epic, subTask.getEpic(),"Новая сабтаска не была создана");
+        assertEquals(epic, subTask.getEpic(), "Новая сабтаска не была создана");
     }
 
 

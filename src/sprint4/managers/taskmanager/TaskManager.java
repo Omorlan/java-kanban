@@ -1,4 +1,4 @@
-package sprint4.manager;
+package sprint4.managers.taskmanager;
 
 import sprint4.tasks.Epic;
 import sprint4.tasks.SubTask;
@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface TaskManager {
     /*
-         a. Получение списка всех задач.
-         */
+     a. Получение списка всех задач.
+     */
     List<Task> getAllTasks();
 
     List<Task> getAllSubTasks();
@@ -17,8 +17,8 @@ public interface TaskManager {
     List<Task> getAllEpics();
 
     /*
-         b. Удаление всех задач.
-         */
+     b. Удаление всех задач.
+     */
     void removeAllTasks();
 
     void removeAllSubTasks();
@@ -26,8 +26,8 @@ public interface TaskManager {
     void removeAllEpics();
 
     /*
-         c. Получение по идентификатору.
-         */
+     c. Получение по идентификатору.
+     */
     Task getTaskById(int id);
 
     Epic getEpicById(int id);
@@ -35,8 +35,8 @@ public interface TaskManager {
     SubTask getSubTaskById(int id);
 
     /*
-         d. Создание. Сам объект должен передаваться в качестве параметра.
-         */
+     d. Создание. Сам объект должен передаваться в качестве параметра.
+     */
     void createNewTask(Task task);
 
     void createNewSubTask(SubTask subTask);
@@ -44,8 +44,8 @@ public interface TaskManager {
     void createNewEpic(Epic epic);
 
     /*
-         e. Обновление. Новая версия объекта с верным идентификатором передаётся в виде параметра.
-         */
+     e. Обновление. Новая версия объекта с верным идентификатором передаётся в виде параметра.
+     */
     void updateTask(Task updatedTask);
 
     void updateSubTask(SubTask updatedSubTask);
@@ -53,8 +53,8 @@ public interface TaskManager {
     void updateEpic(Epic updatedEpic);
 
     /*
-         f. Удаление по идентификатору.
-         */
+     f. Удаление по идентификатору.
+     */
     void removeTaskById(int id);
 
     void removeSubTaskById(int id);

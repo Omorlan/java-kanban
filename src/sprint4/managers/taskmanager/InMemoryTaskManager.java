@@ -1,22 +1,24 @@
-package sprint4.manager;
+package sprint4.managers.taskmanager;
 
-        import sprint4.tasks.Epic;
-        import sprint4.tasks.SubTask;
-        import sprint4.tasks.Task;
-        import sprint4.tasks.TaskStatus;
+import sprint4.managers.Managers;
+import sprint4.managers.historymanager.HistoryManager;
+import sprint4.tasks.Epic;
+import sprint4.tasks.SubTask;
+import sprint4.tasks.Task;
+import sprint4.tasks.TaskStatus;
 
-        import java.util.ArrayList;
-        import java.util.HashMap;
-        import java.util.List;
-        import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
     private int taskIdCounter = 0; //  счетчик для генерации идентификаторов
 
     private final HistoryManager history = Managers.getDefaultHistory();
-    private Map<Integer, Task> taskMap = new HashMap<>(); //коллекция для хранения задач
-    private Map<Integer, SubTask> subTaskMap = new HashMap<>(); //коллекция для хранения подзадач
-    private Map<Integer, Epic> epicMap = new HashMap<>(); //коллекция для хранения эпиков
+    private final Map<Integer, Task> taskMap = new HashMap<>(); //коллекция для хранения задач
+    private final Map<Integer, SubTask> subTaskMap = new HashMap<>(); //коллекция для хранения подзадач
+    private final Map<Integer, Epic> epicMap = new HashMap<>(); //коллекция для хранения эпиков
 
     /*
      a. Получение списка всех задач.
@@ -72,7 +74,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Epic getEpicById(int id) {
-       Epic epic = epicMap.get(id);
+        Epic epic = epicMap.get(id);
         history.add(epic);
         return epic;
     }

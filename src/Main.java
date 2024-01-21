@@ -1,4 +1,5 @@
-import sprint4.manager.InMemoryTaskManager;
+import sprint4.managers.Managers;
+import sprint4.managers.taskmanager.TaskManager;
 import sprint4.tasks.Epic;
 import sprint4.tasks.SubTask;
 import sprint4.tasks.Task;
@@ -8,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+        TaskManager manager = Managers.getDefault();
 
         Task task1 = new Task("Задача 1", "1", TaskStatus.NEW);
         Task task2 = new Task("Задача 2", "2", TaskStatus.IN_PROGRESS);

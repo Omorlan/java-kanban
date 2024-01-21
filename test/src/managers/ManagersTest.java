@@ -1,8 +1,8 @@
-package manager;
+package managers;
 
 
 import org.junit.jupiter.api.Test;
-import sprint4.manager.Managers;
+import sprint4.managers.Managers;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

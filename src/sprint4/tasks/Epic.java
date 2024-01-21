@@ -1,10 +1,11 @@
 package sprint4.tasks;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Epic extends Task {
-    private ArrayList<Integer> subTaskIds;
+    private final List<Integer> subTaskIds;
 
     public Epic(String name, String description) {
         super(name, description, null);
@@ -14,7 +15,7 @@ public class Epic extends Task {
 
     }
 
-    public ArrayList<Integer> getSubTaskIds() {
+    public List<Integer> getSubTaskIds() {
         return subTaskIds;
     }
 
