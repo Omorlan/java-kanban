@@ -2,7 +2,6 @@ package sprint4.managers.taskmanager;
 
 import sprint4.managers.Managers;
 import sprint4.managers.historymanager.HistoryManager;
-import sprint4.managers.historymanager.InMemoryHistoryManager;
 import sprint4.tasks.Epic;
 import sprint4.tasks.SubTask;
 import sprint4.tasks.Task;
@@ -82,9 +81,9 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public Task getTaskById(int id) {
-        Task task = taskMap.get(id); //не знаю на сколько лучше была идея в отдельноую строчку вывести
-        history.add(task);           // taskMap.get(id),тем самым добавив лишнюю строчку
-        return task;                 // но вроде сделать метод в целом попричесанней
+        Task task = taskMap.get(id);
+        history.add(task);
+        return task;
     }
 
     @Override

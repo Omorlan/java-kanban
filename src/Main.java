@@ -1,4 +1,5 @@
 import sprint4.managers.Managers;
+import sprint4.managers.historymanager.HistoryManager;
 import sprint4.managers.taskmanager.TaskManager;
 import sprint4.tasks.Epic;
 import sprint4.tasks.SubTask;
@@ -15,6 +16,12 @@ public class Main {
         Task task2 = new Task("Задача 2", "2", TaskStatus.IN_PROGRESS);
         manager.createNewTask(task1);
         manager.createNewTask(task2);
+        manager.getTaskById(0);
+        manager.getTaskById(1);
+        System.out.println(manager.getHistory());
+        manager.getTaskById(0);
+        System.out.println(manager.getHistory());
+
 
         Epic epic1 = new Epic("Эпик 1", "э1");
         Epic epic2 = new Epic("Эпик 2", "э2");
@@ -28,11 +35,14 @@ public class Main {
         manager.createNewSubTask(sb1);
         manager.createNewSubTask(sb2);
         manager.createNewSubTask(sb3);
+        manager.getSubTaskById(5);
+        System.out.println(manager.getHistory());
         System.out.println("\nЭпик до обновления сабтасков " + manager.getEpicById(epic1.getId()));
         SubTask sb1up = new SubTask(sb1.getId(), "АпСабтаска эпика1 1", "стэ1-1", TaskStatus.DONE, epic1);
         SubTask sb2up = new SubTask(sb2.getId(), "АпСабтаска эпика1 2", "стэ1-2", TaskStatus.DONE, epic1);
         manager.updateSubTask(sb1up);
         manager.updateSubTask(sb2up);
+
         System.out.println("\nЭпик после обновления сабтасков " + manager.getEpicById(2));
         manager.removeEpicById(epic1.getId());
         manager.removeTaskById(task1.getId());
