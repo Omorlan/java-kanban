@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class ManagersTest {
     //Проверка инициализации
     @Test
-    void shouldNotBeNullInGetDefault() {
+    void getDefaultShouldNotBeNull() {
         assertNotNull(Managers.getDefault());
     }
 
     @Test
-    void shouldNotBeNullInGetDefaultHistory() {
+    void getDefaultHistoryShouldNotBeNullIn() {
         assertNotNull(Managers.getDefaultHistory());
     }
 }

@@ -10,7 +10,7 @@ public class EpicTest {
     private static final String EPIC_NAME = "EpicName";
     private static final String DESCRIPTION = "Description";
     @Test
-    void testTaskInheritanceEqualityById() {
+    void taskInheritanceEqualityByIdShouldReturnTrueForEqualIds() {
         Epic epic1 = new Epic("Epic1", "Description1");
         Epic epic2 = new Epic("Совсем другая задача", "И описание ни на что ранее не похожее");
 
@@ -22,7 +22,7 @@ public class EpicTest {
 
 
     @Test
-    public void testCreateEpic() {
+    public void createEpicShouldCreateEpicWithDefaultValues() {
         Epic epic = new Epic(EPIC_NAME, DESCRIPTION);
 
         assertEquals(EPIC_NAME, epic.getName());
@@ -32,7 +32,7 @@ public class EpicTest {
     }
 
     @Test
-    public void testAddSubTaskIdToEpic() {
+    public void addSubTaskIdToEpicShouldAddSubTaskIdToEpic() {
         Epic epic = new Epic(EPIC_NAME, DESCRIPTION);
         epic.addSubTaskId(1);
         assertEquals(1, epic.getSubTaskIds().size());
@@ -40,7 +40,7 @@ public class EpicTest {
     }
 
     @Test
-    public void testRemoveSubTaskIdFromEpic() {
+    public void removeSubTaskIdFromEpicShouldRemoveSubTaskIdFromEpic() {
         Epic epic = new Epic(EPIC_NAME, DESCRIPTION);
         epic.addSubTaskId(1);
         epic.removeSubTaskId(1);
@@ -49,7 +49,7 @@ public class EpicTest {
     }
 
     @Test
-    public void testRemoveAllSubtasksFromEpic() {
+    public void removeAllSubtasksFromEpicShouldRemoveAllSubtasksFromEpic() {
         Epic epic = new Epic(EPIC_NAME, DESCRIPTION);
         epic.addSubTaskId(1);
         epic.addSubTaskId(2);

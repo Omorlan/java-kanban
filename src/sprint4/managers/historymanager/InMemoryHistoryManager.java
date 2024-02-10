@@ -56,8 +56,8 @@ public class InMemoryHistoryManager implements HistoryManager {
         return historyTasks;
     }
 
-    @Override
-    public void linkLast(Task element) {
+
+    private void linkLast(Task element) {
         final Node<Task> oldTail = tail;
         final Node<Task> newNode = new Node<>(oldTail, element, null);
         tail = newNode;
@@ -66,8 +66,8 @@ public class InMemoryHistoryManager implements HistoryManager {
         else oldTail.next = newNode;
     }
 
-    @Override
-    public List<Task> getTasks() {
+
+    private List<Task> getTasks() {
         List<Task> tasks = new LinkedList<>();
         Node<Task> currentNode = head;
         while (currentNode != null) {

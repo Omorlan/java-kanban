@@ -28,7 +28,7 @@ public class InMemoryHistoryManagersTest {
 
     @DisplayName("Проверка работоспособности истории")
     @Test
-    public void testAddAndGetHistory() {
+    public void addAndGetHistoryShouldReturnCorrectHistory() {
         Task task1 = new Task("Task 1", "DescriptionTask", TaskStatus.IN_PROGRESS);
         SubTask subTask1 = new SubTask("SubTask 1", "DescriptionSub", TaskStatus.IN_PROGRESS, new Epic("Epic 1", "DescriptionEpic"));
         manager.createNewTask(task1);
@@ -43,38 +43,5 @@ public class InMemoryHistoryManagersTest {
         assertEquals(2, manager.getHistory().size(), "История не должна увеличиваться при повторном добавлении задачи");
         assertEquals(task1, manager.getHistory().get(1), "История должна содержать последний просмотр задачи");
     }
-
-    @Test
-    void testLinkLast() {
-        Task task1 = new Task("Задача 1", "Описание 1", TaskStatus.DONE);
-        Task task2 = new Task("Задача 2", "Описание 2", TaskStatus.DONE);
-
-        historyManager.linkLast(task1);
-        historyManager.linkLast(task2);
-
-        List<Task> tasks = historyManager.getTasks();
-        assertEquals(2, tasks.size());
-        assertEquals(task1, tasks.get(0));
-        assertEquals(task2, tasks.get(1));
-    }
-
-    @Test
-    void testGetTasks() {
-        Task task1 = new Task(1, "Задача 1", "Описание 1", TaskStatus.DONE);
-        Task task2 = new Task(2, "Задача 2", "Описание 2", TaskStatus.DONE);
-        Task task3 = new Task(3, "Задача 3", "Описание 3", TaskStatus.DONE);
-        historyManager.linkLast(task1);
-        historyManager.linkLast(task2);
-        historyManager.linkLast(task3);
-
-        List<Task> tasks = historyManager.getTasks();
-
-        // Проверяем, что все задачи были получены в правильном порядке
-        assertEquals(3, tasks.size());
-        assertEquals(task1, tasks.get(0));
-        assertEquals(task2, tasks.get(1));
-        assertEquals(task3, tasks.get(2));
-    }
-
 
 }

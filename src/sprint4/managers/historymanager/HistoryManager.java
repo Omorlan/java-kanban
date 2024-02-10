@@ -12,7 +12,4 @@ public interface HistoryManager {
 
     void remove(int id);
 
-    List<Task> getTasks();
-
-    void linkLast(Task element);
 }

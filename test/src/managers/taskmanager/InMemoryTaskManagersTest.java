@@ -24,7 +24,7 @@ public class InMemoryTaskManagersTest {
 
     @DisplayName("Создание новой задачи")
     @Test
-    void testCreateNewTask() {
+    void createNewTaskShouldAddTaskToHistory() {
 
         Task task = new Task("New Task", "DescriptionTask", TaskStatus.IN_PROGRESS);
         manager.createNewTask(task);
@@ -38,7 +38,7 @@ public class InMemoryTaskManagersTest {
 
     @DisplayName("Удаление задачи по id")
     @Test
-    void testRemoveTaskById() {
+    void removeTaskByIdShouldRemoveTaskFromManager() {
 
         Task task = new Task("Task to Remove", "DescriptionTaskToRemove", TaskStatus.NEW);
         manager.createNewTask(task);
@@ -53,7 +53,7 @@ public class InMemoryTaskManagersTest {
 
     @DisplayName("Поиск по id")
     @Test
-    void testInMemoryTaskManagerAddAndFindTasks() {
+    void getTasksByIdShouldReturnCorrectTasks() {
 
         Task task = new Task("Task", "DescriptionTask", TaskStatus.NEW);
         Epic epic = new Epic("Epic", "DescriptionEpic");
@@ -67,7 +67,7 @@ public class InMemoryTaskManagersTest {
 
     @DisplayName("Обновление статуса эпика")
     @Test
-    void testInMemoryTaskManagerUpdateEpicStatus() {
+    void updateEpicStatusShouldUpdateEpicStatusCorrectly() {
         Epic epic = new Epic("Epic", "Description");
         manager.createNewEpic(epic);
         assertEquals(TaskStatus.NEW, epic.getStatus(), "Статус только созданного эпика!=NEW");
@@ -81,7 +81,7 @@ public class InMemoryTaskManagersTest {
 
     @DisplayName("Удаление подзадачи при удалении эпика")
     @Test
-    void testRemoveEpicById() {
+    void removeEpicByIdShouldRemoveEpicAndSubTasks() {
         Epic epic = new Epic("Epic", "Description");
         SubTask subTask = new SubTask("SubTask", "Description", TaskStatus.IN_PROGRESS, epic);
         manager.createNewEpic(epic);
@@ -92,7 +92,7 @@ public class InMemoryTaskManagersTest {
 
     @DisplayName("Удаление подзадачи из списка эпика при удалении подзадачи")
     @Test
-    void testRemoveSubTaskIdFromEpic() {
+    void removeSubTaskShouldRemoveSubTaskFromEpic() {
         Epic epic = new Epic("Epic", "Description");
         SubTask subTask1 = new SubTask("SubTask1", "Description", TaskStatus.IN_PROGRESS, epic);
         SubTask subTask2 = new SubTask("SubTask2", "Description", TaskStatus.IN_PROGRESS, epic);
@@ -106,7 +106,7 @@ public class InMemoryTaskManagersTest {
 
     @DisplayName("Изменение описания")
     @Test
-    void testUpdateTaskDescription() {
+    void updateTaskDescriptionShouldUpdateTaskDescription() {
         Task task = new Task("Task", "Description", TaskStatus.NEW);
         manager.createNewTask(task);
         String newDescription = "New Description";
@@ -117,7 +117,7 @@ public class InMemoryTaskManagersTest {
 
     @DisplayName("Удаление всех задач")
     @Test
-    void testRemoveAllTasks() {
+    void removeAllTasksShouldRemoveAllTasksFromManager() {
         Task task1 = new Task("Task 1", "DescriptionTask 1", TaskStatus.NEW);
         Task task2 = new Task("Task 2", "DescriptionTask 2", TaskStatus.IN_PROGRESS);
         manager.createNewTask(task1);
@@ -132,7 +132,7 @@ public class InMemoryTaskManagersTest {
 
     @DisplayName("Удаление всех подзадач")
     @Test
-    void testRemoveAllSubTasks() {
+    void removeAllSubTasksShouldRemoveAllSubTasksFromManager() {
         Epic epic = new Epic("Epic", "DescriptionEpic");
         manager.createNewEpic(epic);
         SubTask subTask1 = new SubTask("SubTask 1", "DescriptionSubTask 1", TaskStatus.NEW, epic);
@@ -148,7 +148,7 @@ public class InMemoryTaskManagersTest {
 
     @DisplayName("Удаление всех эпиков")
     @Test
-    void testRemoveAllEpics() {
+    void removeAllEpicsShouldRemoveAllEpicsAndRelatedSubTasks() {
         Epic epic1 = new Epic("Epic 1", "DescriptionEpic 1");
         Epic epic2 = new Epic("Epic 2", "DescriptionEpic 2");
         SubTask subTask1 = new SubTask("SubTask 1", "DescriptionSubTask 1", TaskStatus.NEW, epic1);
@@ -167,7 +167,7 @@ public class InMemoryTaskManagersTest {
 
     @Test
     @DisplayName("Обновление задачи")
-    void testUpdateTask() {
+    void updateTaskShouldUpdateTaskCorrectly() {
         Task task = new Task("Task", "Description", TaskStatus.NEW);
         manager.createNewTask(task);
         Task updatedTask = new Task(task.getId(), "Updated Task", "Updated Description", TaskStatus.IN_PROGRESS);
@@ -178,7 +178,7 @@ public class InMemoryTaskManagersTest {
 
     @Test
     @DisplayName("Обновление подзадачи")
-    void testUpdateSubTask() {
+    void updateSubTaskShouldUpdateSubTaskCorrectly() {
         Epic epic = new Epic("Epic", "Description");
         manager.createNewEpic(epic);
         SubTask subTask = new SubTask("SubTask", "Description", TaskStatus.NEW, epic);
@@ -191,7 +191,7 @@ public class InMemoryTaskManagersTest {
 
     @Test
     @DisplayName("Обновление эпика")
-    void testUpdateEpic() {
+    void updateEpicShouldUpdateEpicCorrectly() {
         Epic epic = new Epic("Epic", "Description");
         manager.createNewEpic(epic);
         Epic updatedEpic = new Epic(epic.getId(), "Updated Epic", "Updated Description");
@@ -202,7 +202,7 @@ public class InMemoryTaskManagersTest {
 
     @DisplayName("Добавление подзадач эпику")
     @Test
-    void testGetSubTasksOfEpic() {
+    void getSubTasksOfEpicShouldReturnSubTasksBelongingToEpic() {
         Epic epic = new Epic("Epic", "Description");
         manager.createNewEpic(epic);
         SubTask subTask1 = new SubTask(1, "SubTask 1", "Description", TaskStatus.DONE, epic);
