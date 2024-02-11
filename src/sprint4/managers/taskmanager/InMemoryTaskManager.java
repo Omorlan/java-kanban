@@ -43,11 +43,18 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public void removeAllTasks() {
+        for (Task task : taskMap.values()) {
+            history.remove(task.getId());
+        }
         taskMap.clear();
+
     }
 
     @Override
     public void removeAllSubTasks() {
+        for (SubTask subTask : subTaskMap.values()) {
+            history.remove(subTask.getId());
+        }
         subTaskMap.clear();
         for (Epic epic : epicMap.values()) {
             epic.removeAllSubtasks();
@@ -57,6 +64,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeAllEpics() {
+        for (Epic epic : epicMap.values()) {
+            history.remove(epic.getId());
+            for (int subTaskId : epic.getSubTaskIds()) {
+                history.remove(subTaskId);
+            }
+        }
+
         epicMap.clear();
         subTaskMap.clear();
     }
@@ -67,9 +81,9 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public Task getTaskById(int id) {
-        Task task = taskMap.get(id); //не знаю на сколько лучше была идея в отдельноую строчку вывести
-        history.add(task);           // taskMap.get(id),тем самым добавив лишнюю строчку
-        return task;                 // но вроде сделать метод в целом попричесанней
+        Task task = taskMap.get(id);
+        history.add(task);
+        return task;
     }
 
     @Override
@@ -142,7 +156,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void removeTaskById(int id) {
         taskMap.remove(id);
-
+        history.remove(id);
     }
 
     @Override
@@ -151,12 +165,14 @@ public class InMemoryTaskManager implements TaskManager {
         Epic epic = subTaskToRemove.getEpic();
         epic.removeSubTaskId(id);
         updateEpicStatusBySubTasks(epic);
+        history.remove(id);
     }
 
     @Override
     public void removeEpicById(int id) {
         Epic epicToRemove = epicMap.remove(id);
         subTaskMap.values().removeIf(subTask -> subTask.getEpic() == epicToRemove);
+        history.remove(id);
     }
 
     // Метод для получения нового уникального идентификатора задачи

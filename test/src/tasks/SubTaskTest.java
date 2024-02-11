@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SubTaskTest {
     @Test
-    void testTaskInheritanceEqualityById() {
+    void taskInheritanceEqualityById() {
         Epic epic = new Epic("Epic", "Description");
         Epic anotherEpic = new Epic("Epic", "Description");
         SubTask subTask1 = new SubTask("Subtask", "Description1", TaskStatus.DONE, epic);
@@ -23,7 +23,7 @@ public class SubTaskTest {
     }
 
     @Test
-    public void testCreateSubTask() {
+    public void ñreateSubTaskShouldCreateSubTaskWithExpectedValues() {
         Epic epic = new Epic("EpicName", "Description");
         SubTask subTask = new SubTask("SubTaskName", "Description", TaskStatus.IN_PROGRESS, epic);
 
