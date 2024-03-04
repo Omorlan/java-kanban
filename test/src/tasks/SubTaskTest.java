@@ -23,7 +23,7 @@ public class SubTaskTest {
     }
 
     @Test
-    public void ñreateSubTaskShouldCreateSubTaskWithExpectedValues() {
+    public void createSubTaskShouldCreateSubTaskWithExpectedValues() {
         Epic epic = new Epic("EpicName", "Description");
         SubTask subTask = new SubTask("SubTaskName", "Description", TaskStatus.IN_PROGRESS, epic);
 

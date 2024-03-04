@@ -17,6 +17,10 @@ public class InMemoryHistoryManager implements HistoryManager {
         this.nodesMap = new HashMap<>();
     }
 
+    public LinkedList<Task> getHistoryTasks() {
+        return historyTasks;
+    }
+
     @Override
     public void add(Task task) {
         if (task == null) {
@@ -25,7 +29,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         Node<Task> existingNode = nodesMap.get(task.getId());
         if (existingNode != null) {
             remove(task.getId());
-        } else {
+        }
             Node<Task> newNode = new Node<>(tail, task, null);
             if (tail != null) {
                 tail.next = newNode;
@@ -35,7 +39,7 @@ public class InMemoryHistoryManager implements HistoryManager {
                 head = newNode;
             }
             nodesMap.put(task.getId(), newNode);
-        }
+
 
         historyTasks.add(task);
     }

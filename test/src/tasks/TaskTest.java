@@ -8,22 +8,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class TaskTest {
-    //Две задачи с одинаковым id должны выглядеть для менеджера как одна и та же.
+    //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ id пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅпїЅ.
     @Test
     public void taskInheritanceEqualityByIdShouldReturnTrueForEqualIds() {
-        Task task1 = new Task("Таска поменьше", "Совсем маленькая", TaskStatus.DONE);
-        Task task2 = new Task("Таска покрупнее", "Вот это она большая", TaskStatus.IN_PROGRESS);
+        Task task1 = new Task("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", TaskStatus.DONE);
+        Task task2 = new Task("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", "пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ", TaskStatus.IN_PROGRESS);
         task1.setId(0);
         task2.setId(0);
-        assertEquals(task1, task2, "Две задачи с одинаковым id для менеджера не выглядят как одна и та же.");
+        assertEquals(task1, task2, "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ id пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅпїЅ.");
     }
 
     @Test
-    public void сreateTaskShouldCreateTaskWithExpectedValues() {
+    public void createTaskShouldCreateTaskWithExpectedValues() {
         Task task = new Task("Name", "Description", TaskStatus.DONE);
         assertEquals("Name", task.getName());
         assertEquals("Description", task.getDescription());
-        assertEquals(TaskStatus.DONE, task.getStatus(), "Задача не была создана");
+        assertEquals(TaskStatus.DONE, task.getStatus(), "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
     }
     @Test
     public void tasksWithDifferentIdsShouldNotEqual() {
@@ -31,17 +31,17 @@ class TaskTest {
         Task task2 = new Task("Task, but another", "Description", TaskStatus.IN_PROGRESS);
         task1.setId(1);
         task2.setId(2);
-        assertNotEquals(task1, task2, "Задачи с разными id  не должны быть равны");
+        assertNotEquals(task1, task2, "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ id  пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ");
     }
     @Test
     public void setStatusShouldUpdateTaskStatusAsExpected() {
         Task task = new Task("Task", "Description", TaskStatus.NEW);
-        assertEquals(TaskStatus.NEW, task.getStatus(), "Статус задачи должен быть NEW");
+        assertEquals(TaskStatus.NEW, task.getStatus(), "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ NEW");
 
         task.setStatus(TaskStatus.IN_PROGRESS);
-        assertEquals(TaskStatus.IN_PROGRESS, task.getStatus(), "Статус задачи должен быть IN_PROGRESS");
+        assertEquals(TaskStatus.IN_PROGRESS, task.getStatus(), "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ IN_PROGRESS");
 
         task.setStatus(TaskStatus.DONE);
-        assertEquals(TaskStatus.DONE, task.getStatus(), "Статус задачи должен быть DONE");
+        assertEquals(TaskStatus.DONE, task.getStatus(), "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ DONE");
     }
 }

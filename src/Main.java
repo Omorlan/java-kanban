@@ -1,4 +1,5 @@
 import sprint4.managers.Managers;
+import sprint4.managers.filemanager.FileBackedTaskManager;
 import sprint4.managers.historymanager.HistoryManager;
 import sprint4.managers.taskmanager.TaskManager;
 import sprint4.tasks.Epic;
@@ -6,14 +7,17 @@ import sprint4.tasks.SubTask;
 import sprint4.tasks.Task;
 import sprint4.tasks.TaskStatus;
 
+import java.io.File;
+
 public class Main {
 
     public static void main(String[] args) {
 
         TaskManager manager = Managers.getDefault();
 
-        Task task1 = new Task("Задача 1", "1", TaskStatus.NEW);
-        Task task2 = new Task("Задача 2", "2", TaskStatus.IN_PROGRESS);
+
+        Task task1 = new Task("Task 1", "t1", TaskStatus.NEW);
+        Task task2 = new Task("Task 2", "t2", TaskStatus.IN_PROGRESS);
         manager.createNewTask(task1);
         manager.createNewTask(task2);
         manager.getTaskById(0);
@@ -23,29 +27,56 @@ public class Main {
         System.out.println(manager.getHistory());
 
 
-        Epic epic1 = new Epic("Эпик 1", "э1");
-        Epic epic2 = new Epic("Эпик 2", "э2");
+        Epic epic1 = new Epic("Epic 1", "e1");
+        Epic epic2 = new Epic("Epic 2", "e2");
         manager.createNewEpic(epic1);
         manager.createNewEpic(epic2);
 
-        SubTask sb1 = new SubTask("Сабтаска эпика1 1", "стэ1-1", TaskStatus.NEW, epic1);
-        SubTask sb2 = new SubTask("Сабтаска эпика1 2", "стэ1-2", TaskStatus.IN_PROGRESS, epic1);
-        SubTask sb3 = new SubTask("Сабтаска эпика2 1", "стэ1-1", TaskStatus.NEW, epic2);
+        SubTask sb1 = new SubTask("SubTask of epic1 1", "ste1-1", TaskStatus.NEW, epic1);
+        SubTask sb2 = new SubTask("SubTask of epic1 2", "ste1-2", TaskStatus.IN_PROGRESS, epic1);
+        SubTask sb3 = new SubTask("SubTask of epic2 1", "ste2-1", TaskStatus.NEW, epic2);
 
         manager.createNewSubTask(sb1);
         manager.createNewSubTask(sb2);
         manager.createNewSubTask(sb3);
-        manager.getSubTaskById(5);
+        manager.getSubTaskById(sb2.getId());
         System.out.println(manager.getHistory());
-        System.out.println("\nЭпик до обновления сабтасков " + manager.getEpicById(epic1.getId()));
-        SubTask sb1up = new SubTask(sb1.getId(), "АпСабтаска эпика1 1", "стэ1-1", TaskStatus.DONE, epic1);
-        SubTask sb2up = new SubTask(sb2.getId(), "АпСабтаска эпика1 2", "стэ1-2", TaskStatus.DONE, epic1);
+        System.out.println("\nEpic before st update" + manager.getEpicById(epic1.getId()));
+        SubTask sb1up = new SubTask(sb1.getId(), "UpSubTask of epic1 1", "ste1-1", TaskStatus.DONE, epic1);
+        SubTask sb2up = new SubTask(sb2.getId(), "UpSubTask of epic1 2", "ste1-2", TaskStatus.DONE, epic1);
         manager.updateSubTask(sb1up);
         manager.updateSubTask(sb2up);
 
-        System.out.println("\nЭпик после обновления сабтасков " + manager.getEpicById(2));
+        System.out.println("\nEpic after st update" + manager.getEpicById(2));
         manager.removeEpicById(epic1.getId());
         manager.removeTaskById(task1.getId());
-
+        TaskManager manager2 = FileBackedTaskManager.loadFromFile(new File("src/resources/backup.csv"));
+        System.out.println("All tasks");
+        for (Task task : manager.getAllTasks().values()) {
+            System.out.println(task);
+        }
+        System.out.println("All epics");
+        for (Epic task : manager.getAllEpics().values()) {
+            System.out.println(task);
+        }
+        System.out.println("All subtasks");
+        for (SubTask task : manager.getAllSubTasks().values()) {
+            System.out.println(task);
+        }
+        System.out.println("All tasks2");
+        for (Task task : manager2.getAllTasks().values()) {
+            System.out.println(task);
+        }
+        System.out.println("All epics2");
+        for (Epic task : manager2.getAllEpics().values()) {
+            System.out.println(task);
+        }
+        System.out.println("All subtasks2");
+        for (SubTask task : manager2.getAllSubTasks().values()) {
+            System.out.println(task);
+        }
+        System.out.println("history");
+        System.out.println(manager.getHistory());
+        System.out.println(manager2.getHistory());
     }
 }

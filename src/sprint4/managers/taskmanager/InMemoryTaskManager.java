@@ -13,33 +13,33 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
-    private int taskIdCounter = 0; //  счетчик для генерации идентификаторов
+    protected int taskIdCounter = 0;
 
-    private final HistoryManager history = Managers.getDefaultHistory();
-    private final Map<Integer, Task> taskMap = new HashMap<>(); //коллекция для хранения задач
-    private final Map<Integer, SubTask> subTaskMap = new HashMap<>(); //коллекция для хранения подзадач
-    private final Map<Integer, Epic> epicMap = new HashMap<>(); //коллекция для хранения эпиков
+    protected static final HistoryManager history = Managers.getDefaultHistory();
+    protected final Map<Integer, Task> taskMap = new HashMap<>();
+    protected final Map<Integer, SubTask> subTaskMap = new HashMap<>();
+    protected final Map<Integer, Epic> epicMap = new HashMap<>();
 
     /*
-     a. Получение списка всех задач.
+     a. Get all tasks.
      */
     @Override
-    public List<Task> getAllTasks() {
-        return new ArrayList<>(taskMap.values());
+    public Map<Integer, Task> getAllTasks() {
+        return taskMap;
     }
 
     @Override
-    public List<Task> getAllSubTasks() {
-        return new ArrayList<>(subTaskMap.values());
+    public Map<Integer, SubTask> getAllSubTasks() {
+        return subTaskMap;
     }
 
     @Override
-    public List<Task> getAllEpics() {
-        return new ArrayList<>(epicMap.values());
+    public Map<Integer, Epic> getAllEpics() {
+        return epicMap;
     }
 
     /*
-     b. Удаление всех задач.
+     b. remove.
      */
     @Override
     public void removeAllTasks() {
@@ -77,7 +77,7 @@ public class InMemoryTaskManager implements TaskManager {
 
 
     /*
-     c. Получение по идентификатору.
+     c. find by id.
      */
     @Override
     public Task getTaskById(int id) {
@@ -101,7 +101,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     /*
-     d. Создание. Сам объект должен передаваться в качестве параметра.
+     d. create
      */
     @Override
     public void createNewTask(Task task) {
@@ -116,8 +116,6 @@ public class InMemoryTaskManager implements TaskManager {
         Epic epic = subTask.getEpic();
         epic.addSubTaskId(subTask.getId());
         updateEpicStatusBySubTasks(epic);
-
-
     }
 
     @Override
@@ -127,7 +125,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     /*
-     e. Обновление. Новая версия объекта с верным идентификатором передаётся в виде параметра.
+     e. update
      */
     @Override
     public void updateTask(Task updatedTask) {
@@ -139,9 +137,9 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateSubTask(SubTask updatedSubTask) {
         int key = updatedSubTask.getId();
-        subTaskMap.put(key, updatedSubTask); //обновляем сабтаску
+        subTaskMap.put(key, updatedSubTask);
         Epic epic = updatedSubTask.getEpic();
-        updateEpicStatusBySubTasks(epic); //обновляем статус эпика
+        updateEpicStatusBySubTasks(epic);
     }
 
     @Override
@@ -151,7 +149,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     /*
-     f. Удаление по идентификатору.
+     f. remove by id
      */
     @Override
     public void removeTaskById(int id) {
@@ -175,7 +173,7 @@ public class InMemoryTaskManager implements TaskManager {
         history.remove(id);
     }
 
-    // Метод для получения нового уникального идентификатора задачи
+
     private int generateTaskId() {
         return taskIdCounter++;
     }
@@ -199,7 +197,7 @@ public class InMemoryTaskManager implements TaskManager {
         return history.getHistory();
     }
 
-    private void updateEpicStatusBySubTasks(Epic epic) {
+    protected void updateEpicStatusBySubTasks(Epic epic) {
         boolean allSubTasksDone = true;
         for (Integer subTaskId : epic.getSubTaskIds()) {
             SubTask subTask = subTaskMap.get(subTaskId);

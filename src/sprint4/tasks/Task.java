@@ -8,6 +8,8 @@ public class Task {
     protected String description;
     protected int id;
     protected TaskStatus status;
+
+
     protected TaskType type;
 
     public Task(String name, String description, TaskStatus status) {
@@ -25,12 +27,21 @@ public class Task {
         this.type = TaskType.TASK;
     }
 
+    public String toStringFromFile() {
+        return String.format("%s,%s,%s,%s,%s,%s", id, type, name, status, description, "");
+    }
+
     public String getName() {
         return name;
     }
 
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public TaskType getType() {
+        return type;
     }
 
     public String getDescription() {
@@ -72,12 +83,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "TASK{" +
-                "id=" + id +
-                ", Name='" + name + '\'' +
-                ", Description='" + description + '\'' +
-                ", Status='" + status + '\'' +
-                '}';
+        return "TASK{" + "id=" + id + ", Name='" + name + '\'' + ", Description='" + description + '\'' + ", Status='" + status + '\'' + '}';
     }
 
 
