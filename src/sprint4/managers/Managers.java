@@ -4,7 +4,6 @@ package sprint4.managers;
 import sprint4.managers.filemanager.FileBackedTaskManager;
 import sprint4.managers.historymanager.HistoryManager;
 import sprint4.managers.historymanager.InMemoryHistoryManager;
-import sprint4.managers.taskmanager.InMemoryTaskManager;
 import sprint4.managers.taskmanager.TaskManager;
 
 import java.io.File;
