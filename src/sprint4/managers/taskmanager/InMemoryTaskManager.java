@@ -15,7 +15,7 @@ import java.util.Map;
 public class InMemoryTaskManager implements TaskManager {
     protected int taskIdCounter = 0;
 
-    protected  final HistoryManager history = Managers.getDefaultHistory();
+    protected final HistoryManager history = Managers.getDefaultHistory();
     protected final Map<Integer, Task> taskMap = new HashMap<>();
     protected final Map<Integer, SubTask> subTaskMap = new HashMap<>();
     protected final Map<Integer, Epic> epicMap = new HashMap<>();
@@ -149,7 +149,7 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public void removeTaskById(int id) {
-        if (taskMap.get(id)!=null) {
+        if (taskMap.get(id) != null) {
             taskMap.remove(id);
             history.remove(id);
         }
@@ -157,7 +157,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeSubTaskById(int id) {
-        if (subTaskMap.get(id)!=null) {
+        if (subTaskMap.get(id) != null) {
             SubTask subTaskToRemove = subTaskMap.remove(id);
             Epic epic = subTaskToRemove.getEpic();
             epic.removeSubTaskId(id);
@@ -168,7 +168,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void removeEpicById(int id) {
-        if (epicMap.get(id)!=null) {
+        if (epicMap.get(id) != null) {
             Epic epicToRemove = epicMap.remove(id);
             for (int stId : epicToRemove.getSubTaskIds()) {
                 history.remove(stId);
