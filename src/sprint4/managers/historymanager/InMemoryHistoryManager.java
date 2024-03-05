@@ -17,10 +17,6 @@ public class InMemoryHistoryManager implements HistoryManager {
         this.nodesMap = new HashMap<>();
     }
 
-    public LinkedList<Task> getHistoryTasks() {
-        return historyTasks;
-    }
-
     @Override
     public void add(Task task) {
         if (task == null) {
