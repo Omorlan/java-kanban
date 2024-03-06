@@ -33,7 +33,7 @@ class InMemoryTaskManagersTest {
         Task retrievedTask = manager.getTaskById(task.getId());
         assertEquals(task, retrievedTask);
         // Проверяем, что эта задача также добавлена в историю
-        assertEquals(task, manager.getHistory().get(manager.getHistory().size()-1), "Задача не добавленна в историю");
+        assertEquals(task, manager.getHistory().get(manager.getHistory().size() - 1), "Задача не добавленна в историю");
     }
 
     @Test
@@ -77,6 +77,7 @@ class InMemoryTaskManagersTest {
         manager.createNewSubTask(subTask2);
         assertEquals(TaskStatus.IN_PROGRESS, epic.getStatus(), "Статус эпика с одной подзадчей не со статусом DONE != IN_PROGRESS");
     }
+
     @Test
     void removeEpicByIdShouldRemoveEpicAndSubTasks() {
         Epic epic = new Epic("Epic", "Description");
@@ -86,6 +87,7 @@ class InMemoryTaskManagersTest {
         manager.removeEpicById(epic.getId());
         assertNull(manager.getSubTaskById(subTask.getId()));
     }
+
     @Test
     void removeSubTaskShouldRemoveSubTaskFromEpic() {
         Epic epic = new Epic("Epic", "Description");
@@ -98,6 +100,7 @@ class InMemoryTaskManagersTest {
         manager.removeSubTaskById(subTask1.getId());
         assertFalse(epic.getSubTaskIds().contains(subTask1.getId()));
     }
+
     @Test
     void updateTaskDescriptionShouldUpdateTaskDescription() {
         Task task = new Task("Task", "Description", TaskStatus.NEW);
@@ -107,6 +110,7 @@ class InMemoryTaskManagersTest {
         Task updatedTask = manager.getTaskById(task.getId());
         assertEquals(newDescription, updatedTask.getDescription());
     }
+
     @Test
     void removeAllSubTasksShouldRemoveAllSubTasksFromManager() {
         Epic epic = new Epic("Epic", "DescriptionEpic");
@@ -121,6 +125,7 @@ class InMemoryTaskManagersTest {
         assertEquals(0, manager.getAllSubTasks().size(), "The subtasks have not been deleted");
         assertEquals(0, epic.getSubTaskIds().size(), "The epic have not been deleted");
     }
+
     @Test
     void updateTaskShouldUpdateTaskCorrectly() {
         Task task = new Task("Task", "Description", TaskStatus.NEW);
@@ -130,6 +135,7 @@ class InMemoryTaskManagersTest {
         Task retrievedTask = manager.getTaskById(task.getId());
         assertEquals(updatedTask, retrievedTask);
     }
+
     @Test
     void updateSubTaskShouldUpdateSubTaskCorrectly() {
         Epic epic = new Epic("Epic", "Description");
@@ -141,6 +147,7 @@ class InMemoryTaskManagersTest {
         SubTask retrievedSubTask = manager.getSubTaskById(subTask.getId());
         assertEquals(updatedSubTask, retrievedSubTask);
     }
+
     @Test
     void updateEpicShouldUpdateEpicCorrectly() {
         Epic epic = new Epic("Epic", "Description");

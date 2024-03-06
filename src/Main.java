@@ -14,7 +14,6 @@ public class Main {
 
         TaskManager manager = Managers.getDefault();
 
-
         Task task1 = new Task("Task 1", "t1", TaskStatus.NEW);
         Task task2 = new Task("Task 2", "t2", TaskStatus.IN_PROGRESS);
         manager.createNewTask(task1);

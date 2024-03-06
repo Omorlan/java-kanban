@@ -6,9 +6,11 @@ import sprint.tasks.TaskStatus;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class EpicTest {
     private static final String EPIC_NAME = "EpicName";
     private static final String DESCRIPTION = "Description";
+
     @Test
     void testTaskInheritanceEqualityById() {
         Epic epic1 = new Epic("Epic1", "Description1");

@@ -26,15 +26,15 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (existingNode != null) {
             remove(task.getId());
         }
-            Node<Task> newNode = new Node<>(tail, task, null);
-            if (tail != null) {
-                tail.next = newNode;
-            }
-            tail = newNode;
-            if (head == null) {
-                head = newNode;
-            }
-            nodesMap.put(task.getId(), newNode);
+        Node<Task> newNode = new Node<>(tail, task, null);
+        if (tail != null) {
+            tail.next = newNode;
+        }
+        tail = newNode;
+        if (head == null) {
+            head = newNode;
+        }
+        nodesMap.put(task.getId(), newNode);
 
 
         historyTasks.add(task);

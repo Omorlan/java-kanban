@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class FileBackedTaskManagerTest {
 
 
-
     @Test
     void saveAndLoadFromFileMustBeSame() throws IOException {
 
@@ -40,24 +39,26 @@ class FileBackedTaskManagerTest {
         fileManager.getTaskById(task1.getId());
 
         FileBackedTaskManager loadedManager = FileBackedTaskManager.loadFromFile(file);
-        assertEquals(fileManager.getTaskById(1), loadedManager.getTaskById(1),"task created from the file " +
+        assertEquals(fileManager.getTaskById(1), loadedManager.getTaskById(1), "task created from the file " +
                 "does not match the saved one");
-        assertEquals(fileManager.getSubTaskById(3), loadedManager.getSubTaskById(3),"subtask created from the file" +
+        assertEquals(fileManager.getSubTaskById(3), loadedManager.getSubTaskById(3), "subtask created from the file" +
                 " does not match the saved one");
-        assertEquals(fileManager.getEpicById(2), loadedManager.getEpicById(2),"epic created from the file" +
+        assertEquals(fileManager.getEpicById(2), loadedManager.getEpicById(2), "epic created from the file" +
                 " does not match the saved one");
     }
+
     @Test
     void loadFromEmptyFileShouldNotCreateAnything() throws IOException {
         File tempDir = Files.createTempDirectory("test_files").toFile();
         File file = Files.createTempFile(tempDir.toPath(), "empty_tasks", ".csv").toFile();
 
         FileBackedTaskManager fileManager = FileBackedTaskManager.loadFromFile(file);
-        assertTrue(fileManager.getAllTasks().isEmpty(),"Nothing should be created from an empty file");
-        assertTrue(fileManager.getAllEpics().isEmpty(),"Nothing should be created from an empty file");
-        assertTrue(fileManager.getAllSubTasks().isEmpty(),"Nothing should be created from an empty file");
-        assertTrue(fileManager.getHistory().isEmpty(),"Nothing should be created from an empty file");
+        assertTrue(fileManager.getAllTasks().isEmpty(), "Nothing should be created from an empty file");
+        assertTrue(fileManager.getAllEpics().isEmpty(), "Nothing should be created from an empty file");
+        assertTrue(fileManager.getAllSubTasks().isEmpty(), "Nothing should be created from an empty file");
+        assertTrue(fileManager.getHistory().isEmpty(), "Nothing should be created from an empty file");
     }
+
     @Test
     void saveEmptyManagerToFileShouldCreateEmptyFile() throws IOException {
         File tempDir = Files.createTempDirectory("test_files").toFile();
@@ -67,6 +68,7 @@ class FileBackedTaskManagerTest {
         assertTrue(file.exists(), "Saved file should exist");
         assertEquals(0, file.length(), "Saved file should be empty");
     }
+
     @Test
     void createTasksFromFileShouldBeCreatedInManager() throws IOException {
         File tempDir = Files.createTempDirectory("test_files").toFile();
@@ -90,7 +92,7 @@ class FileBackedTaskManagerTest {
         assertNotNull(epic, "Epic should be created from the file");
         assertEquals("Epic 1", epic.getName(), "Epic name should match");
         assertEquals("Description of Epic 1", epic.getDescription(), "Epic description should match");
-        assertNotEquals(TaskStatus.NEW,epic.getStatus(), "Epic status should be changed");
+        assertNotEquals(TaskStatus.NEW, epic.getStatus(), "Epic status should be changed");
         assertEquals(TaskStatus.IN_PROGRESS, epic.getStatus(), "Epic status should match");
 
         SubTask subTask = fileManager.getSubTaskById(3);
@@ -99,11 +101,6 @@ class FileBackedTaskManagerTest {
         assertEquals("Description of SubTask 1", subTask.getDescription(), "Subtask description should match");
         assertEquals(TaskStatus.NEW, subTask.getStatus(), "Subtask status should match");
     }
-
-
-
-
-
 
 
 }

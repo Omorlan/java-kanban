@@ -11,9 +11,9 @@ public interface TaskManager {
     /*
      a. ��������� ������ ���� �����.
      */
-    Map<Integer,Task> getAllTasks();
+    Map<Integer, Task> getAllTasks();
 
-    Map<Integer,SubTask> getAllSubTasks();
+    Map<Integer, SubTask> getAllSubTasks();
 
     Map<Integer, Epic> getAllEpics();
 
