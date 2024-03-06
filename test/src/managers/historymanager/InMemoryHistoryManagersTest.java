@@ -1,20 +1,20 @@
 package managers.historymanager;
 
 import org.junit.jupiter.api.Test;
-import sprint4.managers.Managers;
-import sprint4.managers.filemanager.FileBackedTaskManager;
-import sprint4.managers.historymanager.HistoryManager;
-import sprint4.tasks.Epic;
-import sprint4.tasks.SubTask;
-import sprint4.tasks.Task;
-import sprint4.tasks.TaskStatus;
+import sprint.managers.Managers;
+import sprint.managers.filemanager.FileBackedTaskManager;
+import sprint.managers.historymanager.HistoryManager;
+import sprint.tasks.Epic;
+import sprint.tasks.SubTask;
+import sprint.tasks.Task;
+import sprint.tasks.TaskStatus;
 
 import java.io.File;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class InMemoryHistoryManagersTest {
+class InMemoryHistoryManagersTest {
     HistoryManager historyManager = Managers.getDefaultHistory();
     File file;
 
@@ -29,7 +29,7 @@ public class InMemoryHistoryManagersTest {
     FileBackedTaskManager manager = new FileBackedTaskManager(file);
 
     @Test
-    public void addAndGetHistoryShouldReturnCorrectHistory() {
+    void addAndGetHistoryShouldReturnCorrectHistory() {
         Task task1 = new Task("Task 1", "DescriptionTask", TaskStatus.IN_PROGRESS);
         SubTask subTask1 = new SubTask("SubTask 1", "DescriptionSub", TaskStatus.IN_PROGRESS, new Epic("Epic 1", "DescriptionEpic"));
         manager.createNewTask(task1);

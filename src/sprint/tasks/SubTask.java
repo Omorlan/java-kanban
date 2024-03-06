@@ -1,4 +1,4 @@
-package sprint4.tasks;
+package sprint.tasks;
 
 public class SubTask extends Task {
     private Epic epic;

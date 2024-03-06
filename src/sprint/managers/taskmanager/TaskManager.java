@@ -1,8 +1,8 @@
-package sprint4.managers.taskmanager;
+package sprint.managers.taskmanager;
 
-import sprint4.tasks.Epic;
-import sprint4.tasks.SubTask;
-import sprint4.tasks.Task;
+import sprint.tasks.Epic;
+import sprint.tasks.SubTask;
+import sprint.tasks.Task;
 
 import java.util.List;
 import java.util.Map;

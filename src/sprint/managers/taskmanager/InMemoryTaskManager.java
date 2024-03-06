@@ -1,11 +1,11 @@
-package sprint4.managers.taskmanager;
+package sprint.managers.taskmanager;
 
-import sprint4.managers.Managers;
-import sprint4.managers.historymanager.HistoryManager;
-import sprint4.tasks.Epic;
-import sprint4.tasks.SubTask;
-import sprint4.tasks.Task;
-import sprint4.tasks.TaskStatus;
+import sprint.managers.Managers;
+import sprint.managers.historymanager.HistoryManager;
+import sprint.tasks.Epic;
+import sprint.tasks.SubTask;
+import sprint.tasks.Task;
+import sprint.tasks.TaskStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;

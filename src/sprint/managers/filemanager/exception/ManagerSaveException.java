@@ -1,4 +1,4 @@
-package sprint4.managers.filemanager.exception;
+package sprint.managers.filemanager.exception;
 
 public class ManagerSaveException extends RuntimeException {
     public ManagerSaveException(final String message) {

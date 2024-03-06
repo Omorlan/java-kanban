@@ -1,38 +1,38 @@
 package tasks;
 
 import org.junit.jupiter.api.Test;
-import sprint4.tasks.Epic;
-import sprint4.tasks.TaskStatus;
+import sprint.tasks.Epic;
+import sprint.tasks.TaskStatus;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-public class EpicTest {
+class EpicTest {
     private static final String EPIC_NAME = "EpicName";
     private static final String DESCRIPTION = "Description";
     @Test
-    void taskInheritanceEqualityByIdShouldReturnTrueForEqualIds() {
+    void testTaskInheritanceEqualityById() {
         Epic epic1 = new Epic("Epic1", "Description1");
-        Epic epic2 = new Epic("Совсем другая задача", "И описание ни на что ранее не похожее");
+        Epic epic2 = new Epic("РЎРѕРІСЃРµРј РґСЂСѓРіР°СЏ Р·Р°РґР°С‡Р°", "Р РѕРїРёСЃР°РЅРёРµ РЅРё РЅР° С‡С‚Рѕ СЂР°РЅРµРµ РЅРµ РїРѕС…РѕР¶РµРµ");
 
         epic1.setId(1);
         epic2.setId(1);
 
-        assertEquals(epic1, epic2, "Две задачи с одинаковым id для менеджера не выглядят как одна и та же.");
+        assertEquals(epic1, epic2, "Р”РІРµ Р·Р°РґР°С‡Рё СЃ РѕРґРёРЅР°РєРѕРІС‹Рј id РґР»СЏ РјРµРЅРµРґР¶РµСЂР° РЅРµ РІС‹РіР»СЏРґСЏС‚ РєР°Рє РѕРґРЅР° Рё С‚Р° Р¶Рµ.");
     }
 
 
     @Test
-    public void createEpicShouldCreateEpicWithDefaultValues() {
+    void testCreateEpic() {
         Epic epic = new Epic(EPIC_NAME, DESCRIPTION);
 
         assertEquals(EPIC_NAME, epic.getName());
         assertEquals(DESCRIPTION, epic.getDescription());
         assertEquals(TaskStatus.NEW, epic.getStatus());
-        assertTrue(epic.getSubTaskIds().isEmpty(), "эпик не был создан");
+        assertTrue(epic.getSubTaskIds().isEmpty(), "СЌРїРёРє РЅРµ Р±С‹Р» СЃРѕР·РґР°РЅ");
     }
 
     @Test
-    public void addSubTaskIdToEpicShouldAddSubTaskIdToEpic() {
+    void testAddSubTaskIdToEpic() {
         Epic epic = new Epic(EPIC_NAME, DESCRIPTION);
         epic.addSubTaskId(1);
         assertEquals(1, epic.getSubTaskIds().size());
@@ -40,20 +40,20 @@ public class EpicTest {
     }
 
     @Test
-    public void removeSubTaskIdFromEpicShouldRemoveSubTaskIdFromEpic() {
+    void testRemoveSubTaskIdFromEpic() {
         Epic epic = new Epic(EPIC_NAME, DESCRIPTION);
         epic.addSubTaskId(1);
         epic.removeSubTaskId(1);
 
-        assertTrue(epic.getSubTaskIds().isEmpty(), "Сабтаска не удаляется из эпика");
+        assertTrue(epic.getSubTaskIds().isEmpty(), "РЎР°Р±С‚Р°СЃРєР° РЅРµ СѓРґР°Р»СЏРµС‚СЃСЏ РёР· СЌРїРёРєР°");
     }
 
     @Test
-    public void removeAllSubtasksFromEpicShouldRemoveAllSubtasksFromEpic() {
+    void testRemoveAllSubtasksFromEpic() {
         Epic epic = new Epic(EPIC_NAME, DESCRIPTION);
         epic.addSubTaskId(1);
         epic.addSubTaskId(2);
         epic.removeAllSubtasks();
-        assertTrue(epic.getSubTaskIds().isEmpty(), "Список подзадач не очищается");
+        assertTrue(epic.getSubTaskIds().isEmpty(), "РЎРїРёСЃРѕРє РїРѕРґР·Р°РґР°С‡ РЅРµ РѕС‡РёС‰Р°РµС‚СЃСЏ");
     }
 }

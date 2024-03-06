@@ -1,12 +1,11 @@
 package managers.filemanager;
 
 import org.junit.jupiter.api.Test;
-import sprint4.managers.filemanager.FileBackedTaskManager;
-import sprint4.managers.filemanager.exception.ManagerCreateException;
-import sprint4.tasks.Epic;
-import sprint4.tasks.SubTask;
-import sprint4.tasks.Task;
-import sprint4.tasks.TaskStatus;
+import sprint.managers.filemanager.FileBackedTaskManager;
+import sprint.tasks.Epic;
+import sprint.tasks.SubTask;
+import sprint.tasks.Task;
+import sprint.tasks.TaskStatus;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -15,18 +14,17 @@ import java.io.Writer;
 import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class FileBackedTaskManagerTest {
+class FileBackedTaskManagerTest {
 
 
 
     @Test
-    public void saveAndLoadFromFileMustBeSame() throws IOException {
+    void saveAndLoadFromFileMustBeSame() throws IOException {
 
         File file = new File("src/resources/backup.csv");
 
@@ -92,7 +90,7 @@ public class FileBackedTaskManagerTest {
         assertNotNull(epic, "Epic should be created from the file");
         assertEquals("Epic 1", epic.getName(), "Epic name should match");
         assertEquals("Description of Epic 1", epic.getDescription(), "Epic description should match");
-        assertTrue(!TaskStatus.NEW.equals(epic.getStatus()), "Epic status should be changed");
+        assertNotEquals(TaskStatus.NEW,epic.getStatus(), "Epic status should be changed");
         assertEquals(TaskStatus.IN_PROGRESS, epic.getStatus(), "Epic status should match");
 
         SubTask subTask = fileManager.getSubTaskById(3);

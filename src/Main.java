@@ -1,10 +1,10 @@
-import sprint4.managers.Managers;
-import sprint4.managers.filemanager.FileBackedTaskManager;
-import sprint4.managers.taskmanager.TaskManager;
-import sprint4.tasks.Epic;
-import sprint4.tasks.SubTask;
-import sprint4.tasks.Task;
-import sprint4.tasks.TaskStatus;
+import sprint.managers.Managers;
+import sprint.managers.filemanager.FileBackedTaskManager;
+import sprint.managers.taskmanager.TaskManager;
+import sprint.tasks.Epic;
+import sprint.tasks.SubTask;
+import sprint.tasks.Task;
+import sprint.tasks.TaskStatus;
 
 import java.io.File;
 

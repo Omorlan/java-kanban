@@ -1,4 +1,4 @@
-package sprint4.tasks;
+package sprint.tasks;
 
 public enum TaskType {
     TASK,

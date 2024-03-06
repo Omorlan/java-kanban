@@ -1,6 +1,6 @@
-package sprint4.managers.historymanager;
+package sprint.managers.historymanager;
 
-import sprint4.tasks.Task;
+import sprint.tasks.Task;
 
 import java.util.HashMap;
 import java.util.LinkedList;

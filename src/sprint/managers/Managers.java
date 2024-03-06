@@ -1,10 +1,10 @@
-package sprint4.managers;
+package sprint.managers;
 
 
-import sprint4.managers.filemanager.FileBackedTaskManager;
-import sprint4.managers.historymanager.HistoryManager;
-import sprint4.managers.historymanager.InMemoryHistoryManager;
-import sprint4.managers.taskmanager.TaskManager;
+import sprint.managers.filemanager.FileBackedTaskManager;
+import sprint.managers.historymanager.HistoryManager;
+import sprint.managers.historymanager.InMemoryHistoryManager;
+import sprint.managers.taskmanager.TaskManager;
 
 import java.io.File;
 
