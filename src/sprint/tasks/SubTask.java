@@ -1,7 +1,7 @@
-package sprint4.tasks;
+package sprint.tasks;
 
 public class SubTask extends Task {
-    private Epic epic;  // Идентификатор эпика, к которому относится подзадача
+    private Epic epic;
 
     public SubTask(String name, String description, TaskStatus status, Epic epic) {
         super(name, description, status);
@@ -31,6 +31,12 @@ public class SubTask extends Task {
                 ", Name='" + name + '\'' +
                 ", Description='" + description + '\'' +
                 ", Status='" + status + '\'' +
+                ", Subtask of epic = '" + epic.getId() + '\'' +
                 '}';
+    }
+
+    @Override
+    public String toStringFromFile() {
+        return String.format("%s,%s,%s,%s,%s,%s", id, type, name, status, description, epic.getId());
     }
 }

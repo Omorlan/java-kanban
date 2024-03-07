@@ -1,4 +1,4 @@
-package sprint4.tasks;
+package sprint.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
