@@ -18,6 +18,7 @@ public class SubTask extends Task {
         this.epic = epic;
         this.type = TaskType.SUBTASK;
     }
+
     public SubTask(String name, String description, TaskStatus status, Epic epic, long duration, String startTime) {
         super(name, description, status);
         this.epic = epic;
@@ -26,7 +27,7 @@ public class SubTask extends Task {
         this.startTime = LocalDateTime.parse(startTime, TimeFormatter.TIMEFORMATTER);
     }
 
-    public SubTask(int id, String name, String description, TaskStatus status, Epic epic,long duration, String startTime) {
+    public SubTask(int id, String name, String description, TaskStatus status, Epic epic, long duration, String startTime) {
         super(name, description, status);
         this.id = id;
         this.epic = epic;
@@ -55,7 +56,7 @@ public class SubTask extends Task {
                 ", Status='" + status + '\'' +
                 ", Subtask of epic = '" + epic.getId() + '\'' +
                 ", Duration='" + durationString + '\'' +
-                ", Start time='" +  startTimeString + '\'' +
+                ", Start time='" + startTimeString + '\'' +
                 ", End time='" + endTimeString + '\'' +
                 '}';
     }
@@ -66,6 +67,6 @@ public class SubTask extends Task {
         String startTimeString = (startTime != null) ? startTime.format(TimeFormatter.TIMEFORMATTER) : "N/A";
         String endTimeString = (getEndTime() != null) ? getEndTime().format(TimeFormatter.TIMEFORMATTER) : "N/A";
         return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",
-                id, type, name, status, description, epic.getId(),durationString, startTimeString,endTimeString);
+                id, type, name, status, description, epic.getId(), durationString, startTimeString, endTimeString);
     }
 }
