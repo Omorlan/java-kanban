@@ -68,14 +68,16 @@ public class Epic extends Task {
     public void removeAllSubtasks() {
         subTaskIds.clear();
     }
+
     @Override
     public String toStringFromFile() {
         String durationString = (epicDuration != null) ? epicDuration.toMinutes() + "" : "N/A";
         String startTimeString = (epicStartTime != null) ? epicStartTime.format(TimeFormatter.TIMEFORMATTER) : "N/A";
         String endTimeString = (epicEndTime != null) ? epicEndTime.format(TimeFormatter.TIMEFORMATTER) : "N/A";
         return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",
-                id, type, name, status, description, "N/A", durationString,startTimeString,endTimeString);
+                id, type, name, status, description, "N/A", durationString, startTimeString, endTimeString);
     }
+
     @Override
     public String toString() {
         String durationString = (epicDuration != null) ? epicDuration.toMinutes() + "" : "N/A";
@@ -88,7 +90,7 @@ public class Epic extends Task {
                 ", Status='" + status + '\'' +
                 ", SubtasksIDs='" + subTaskIds + '\'' +
                 ", Duration='" + durationString + '\'' +
-                ", Start time='" +  startTimeString + '\'' +
+                ", Start time='" + startTimeString + '\'' +
                 ", End time='" + endTimeString + '\'' +
                 '}';
     }
