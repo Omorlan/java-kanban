@@ -15,7 +15,7 @@ public class Main {
         TaskManager manager = Managers.getDefault();
 
         Task task1 = new Task("Task 1", "t1", TaskStatus.NEW);
-        Task task2 = new Task("Task 2", "t2", TaskStatus.IN_PROGRESS);
+        Task task2 = new Task("Task 2", "t2", TaskStatus.IN_PROGRESS, 40, "17.03.2024 09:00");
         manager.createNewTask(task1);
         manager.createNewTask(task2);
         manager.getTaskById(0);
@@ -32,7 +32,7 @@ public class Main {
 
         SubTask sb1 = new SubTask("SubTask of epic1 1", "ste1-1", TaskStatus.NEW, epic1);
         SubTask sb2 = new SubTask("SubTask of epic1 2", "ste1-2", TaskStatus.IN_PROGRESS, epic1);
-        SubTask sb3 = new SubTask("SubTask of epic2 1", "ste2-1", TaskStatus.NEW, epic2);
+        SubTask sb3 = new SubTask("SubTask of epic2 1", "ste2-1", TaskStatus.NEW, epic2,40, "17.03.2024 19:00");
 
         manager.createNewSubTask(sb1);
         manager.createNewSubTask(sb2);
@@ -48,7 +48,7 @@ public class Main {
         System.out.println("\nEpic after st update" + manager.getEpicById(2));
         manager.removeEpicById(epic1.getId());
         manager.removeTaskById(task1.getId());
-        TaskManager manager2 = FileBackedTaskManager.loadFromFile(new File("src/resources/backup.csv"));
+
         System.out.println("All tasks");
         for (Task task : manager.getAllTasks().values()) {
             System.out.println(task);
@@ -61,20 +61,11 @@ public class Main {
         for (SubTask task : manager.getAllSubTasks().values()) {
             System.out.println(task);
         }
-        System.out.println("All tasks2");
-        for (Task task : manager2.getAllTasks().values()) {
-            System.out.println(task);
-        }
-        System.out.println("All epics2");
-        for (Epic task : manager2.getAllEpics().values()) {
-            System.out.println(task);
-        }
-        System.out.println("All subtasks2");
-        for (SubTask task : manager2.getAllSubTasks().values()) {
-            System.out.println(task);
-        }
+
         System.out.println("history");
         System.out.println(manager.getHistory());
-        System.out.println(manager2.getHistory());
+        TaskManager manager2 = FileBackedTaskManager.loadFromFile(new File("src/resources/backup.csv"));
+       System.out.println(manager2.getHistory());
+        System.out.println(manager.getPrioritizedTasks());
     }
 }

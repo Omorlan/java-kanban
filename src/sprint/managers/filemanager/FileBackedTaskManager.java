@@ -30,7 +30,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private void save() {
         try (Writer writer = new FileWriter(file)) {
-            writer.write("id,type,name,status,description,epic\n");
+            writer.write("id,type,name,status,description,epic,duration(min),start_time,end_time\n");
             saveTasks(writer, super.getAllTasks().values());
             saveTasks(writer, super.getAllEpics().values());
             saveTasks(writer, super.getAllSubTasks().values());
@@ -59,13 +59,29 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                         String description = parts[4];
                         TaskStatus status = TaskStatus.valueOf(parts[3]);
                         TaskType type = TaskType.valueOf(parts[1]);
-
-                        switch (type) {
-                            case TASK -> tasks.put(id, new Task(id, name, description, status));
-                            case EPIC -> epics.put(id, new Epic(id, name, description));
-                            case SUBTASK -> {
-                                int epicId = Integer.parseInt(parts[5]);
-                                subTasks.put(id, new SubTask(id, name, description, status, epics.get(epicId)));
+                        long duration;
+                        if (parts.length <= 6) {
+                            switch (type) {
+                                case TASK -> tasks.put(id, new Task(id, name, description, status));
+                                case EPIC -> epics.put(id, new Epic(id, name, description));
+                                case SUBTASK -> {
+                                    int epicId = Integer.parseInt(parts[5]);
+                                    subTasks.put(id, new SubTask(id, name, description, status, epics.get(epicId)));
+                                }
+                            }
+                        } else if (parts.length > 6) {
+                            if (!parts[6].equals("N/A")) {
+                                duration = Long.parseLong(parts[6]);
+                                String startTime = parts[7];
+                                switch (type) {
+                                    case TASK ->
+                                            tasks.put(id, new Task(id, name, description, status, duration, startTime));
+                                    case EPIC -> epics.put(id, new Epic(id, name, description));
+                                    case SUBTASK -> {
+                                        int epicId = Integer.parseInt(parts[5]);
+                                        subTasks.put(id, new SubTask(id, name, description, status, epics.get(epicId), duration, startTime));
+                                    }
+                                }
                             }
                         }
                     }
@@ -194,7 +210,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         subTaskMap.put(subTask.getId(), subTask);
         Epic epic = subTask.getEpic();
         epic.addSubTaskId(subTask.getId());
-        updateEpicStatusBySubTasks(epic);
+        updateEpicBySubTasks(epic);
         save();
     }
 
@@ -233,6 +249,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public void removeSubTaskById(int id) {
         super.removeSubTaskById(id);
         save();
+    }
+
+    @Override
+    public List<Task> getHistory() {
+        List<Task> history = super.getHistory();
+        save();
+        return history;
     }
 
     @Override

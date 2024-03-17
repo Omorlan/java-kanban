@@ -6,11 +6,14 @@ import sprint.tasks.Task;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface TaskManager {
+    Set<Task> getPrioritizedTasks();
+
     /*
-     a. ��������� ������ ���� �����.
-     */
+         a. ��������� ������ ���� �����.
+         */
     Map<Integer, Task> getAllTasks();
 
     Map<Integer, SubTask> getAllSubTasks();
