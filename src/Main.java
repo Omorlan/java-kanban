@@ -32,7 +32,7 @@ public class Main {
 
         SubTask sb1 = new SubTask("SubTask of epic1 1", "ste1-1", TaskStatus.NEW, epic1);
         SubTask sb2 = new SubTask("SubTask of epic1 2", "ste1-2", TaskStatus.IN_PROGRESS, epic1);
-        SubTask sb3 = new SubTask("SubTask of epic2 1", "ste2-1", TaskStatus.NEW, epic2,40, "17.03.2024 19:00");
+        SubTask sb3 = new SubTask("SubTask of epic2 1", "ste2-1", TaskStatus.NEW, epic2, 40, "17.03.2024 19:00");
 
         manager.createNewSubTask(sb1);
         manager.createNewSubTask(sb2);
@@ -65,7 +65,7 @@ public class Main {
         System.out.println("history");
         System.out.println(manager.getHistory());
         TaskManager manager2 = FileBackedTaskManager.loadFromFile(new File("src/resources/backup.csv"));
-       System.out.println(manager2.getHistory());
+        System.out.println(manager2.getHistory());
         System.out.println(manager.getPrioritizedTasks());
     }
 }

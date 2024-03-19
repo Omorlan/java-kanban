@@ -21,7 +21,8 @@ import java.util.stream.Collectors;
 
 public class InMemoryTaskManager implements TaskManager {
     protected int taskIdCounter = 0;
-    protected Set<Task> prioritizedTasks = new TreeSet<>();
+    protected Set<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime,
+            Comparator.nullsLast(Comparator.naturalOrder())).thenComparing(Task::getId));
     protected final HistoryManager history = Managers.getDefaultHistory();
     protected final Map<Integer, Task> taskMap = new HashMap<>();
     protected final Map<Integer, SubTask> subTaskMap = new HashMap<>();
@@ -29,8 +30,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Set<Task> getPrioritizedTasks() {
-        prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime,
-                Comparator.nullsLast(Comparator.naturalOrder())).thenComparing(Task::getId));
 
         taskMap.values().forEach(task -> {
             if (task.getStartTime() != null) {
@@ -179,6 +178,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateEpic(Epic updatedEpic) {
         if (!isCrossing(updatedEpic)) {
             epicMap.put(updatedEpic.getId(), updatedEpic);
+            updateEpicBySubTasks(updatedEpic);
         }
     }
 
@@ -250,7 +250,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     protected void updateEpicBySubTasks(Epic epic) {
         boolean allSubTasksDone = epic.getSubTaskIds().stream()
-                .map(subTaskId -> subTaskMap.get(subTaskId))
+                .map(subTaskMap::get)
                 .allMatch(subTask -> subTask.getStatus() == TaskStatus.DONE);
         LocalDateTime earliestStartTime = null;
         LocalDateTime latestEndTime = null;

@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
-    private final File file;
+    protected final File file;
 
     public FileBackedTaskManager(File file) {
         this.file = file;

@@ -11,15 +11,11 @@ import java.util.Set;
 public interface TaskManager {
     Set<Task> getPrioritizedTasks();
 
-    /*
-         a. ��������� ������ ���� �����.
-         */
     Map<Integer, Task> getAllTasks();
 
     Map<Integer, SubTask> getAllSubTasks();
 
     Map<Integer, Epic> getAllEpics();
-
 
     void removeAllTasks();
 
@@ -33,20 +29,17 @@ public interface TaskManager {
 
     SubTask getSubTaskById(int id);
 
-
     void createNewTask(Task task);
 
     void createNewSubTask(SubTask subTask);
 
     void createNewEpic(Epic epic);
 
-
     void updateTask(Task updatedTask);
 
     void updateSubTask(SubTask updatedSubTask);
 
     void updateEpic(Epic updatedEpic);
-
 
     void removeTaskById(int id);
 
