@@ -1,6 +1,6 @@
 id,type,name,status,description,epic,duration(min),start_time,end_time
 1,TASK,Task 2,IN_PROGRESS,t2,N/A,40,17.03.2024 09:00,17.03.2024 09:40
 3,EPIC,Epic 2,IN_PROGRESS,e2,N/A,40,17.03.2024 19:00,17.03.2024 19:40
-6,SUBTASK,SubTask of epic2 1,NEW,ste2-1,3,40,17.03.2024 19:00
+6,SUBTASK,SubTask of epic2 1,NEW,ste2-1,3,40,17.03.2024 19:00,17.03.2024 19:40
 
 1
