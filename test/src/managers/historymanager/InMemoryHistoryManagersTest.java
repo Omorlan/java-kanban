@@ -6,20 +6,18 @@ import org.junit.jupiter.params.provider.ValueSource;
 import sprint.managers.Managers;
 import sprint.managers.filemanager.FileBackedTaskManager;
 import sprint.managers.historymanager.HistoryManager;
-import sprint.tasks.Epic;
 import sprint.tasks.Task;
-import sprint.tasks.TaskStatus;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.stream.IntStream;
 
+import static managers.TaskGeneratorUtil.genTasks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class InMemoryHistoryManagersTest {
-    HistoryManager historyManager = Managers.getDefaultHistory();
-    File file;
+    private HistoryManager historyManager = Managers.getDefaultHistory();
+    private File file;
 
     {
         try {
@@ -29,28 +27,13 @@ class InMemoryHistoryManagersTest {
         }
     }
 
-    FileBackedTaskManager manager = new FileBackedTaskManager(file);
+    private FileBackedTaskManager manager = new FileBackedTaskManager(file);
 
-    void genTasks(int amount, String type) {
-        ///type only for Epic and Task
-        switch (type.toLowerCase()) {
-            case "task":
-                IntStream.range(0, amount)
-                        .mapToObj(i -> new Task("Task " + i, "Description " + i, TaskStatus.NEW))
-                        .forEach(manager::createNewTask);
-                break;
-            case "epic":
-                IntStream.range(0, amount)
-                        .mapToObj(i -> new Epic("Epic " + i, "Description " + i))
-                        .forEach(manager::createNewEpic);
-                break;
-        }
-    }
 
     @Test
     void addAndGetHistoryShouldReturnCorrectHistory() {
-        genTasks(1, "task");
-        genTasks(1, "epic");
+        genTasks(manager, 1, "task");
+        genTasks(manager, 1, "epic");
         manager.getTaskById(0);
         manager.getEpicById(1);
         assertEquals(2, manager.getHistory().size(), "History should contain two elements");
@@ -63,7 +46,7 @@ class InMemoryHistoryManagersTest {
 
     @Test
     void addHistoryShouldAddTaskToHistory() {
-        genTasks(3, "task");
+        genTasks(manager, 3, "task");
         historyManager.add(manager.getAllTasks().get(0));
         assertEquals(1, historyManager.getHistory().size(), "The first task has not been added to the history");
         historyManager.add(manager.getAllTasks().get(1));
@@ -81,7 +64,7 @@ class InMemoryHistoryManagersTest {
     @ValueSource(ints = {0, 1, 2, 3, 4})
     void removeFromHistoryShouldRemoveTasksFromList(int id) {
         int num = 5;
-        genTasks(num, "task");
+        genTasks(manager, num, "task");
         for (int i = 0; i < num; i++) {
             historyManager.add(manager.getAllTasks().get(i));
         }

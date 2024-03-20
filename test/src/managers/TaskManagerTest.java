@@ -20,6 +20,7 @@ import java.util.TreeSet;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static managers.TaskGeneratorUtil.genTasks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -29,29 +30,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public abstract class TaskManagerTest<T extends TaskManager> {
     protected T manager;
 
-    void genTasks(int amount, String type) {
-        ///type only for Epic and Task
-        switch (type.toLowerCase()) {
-            case "task":
-                IntStream.range(0, amount)
-                        .mapToObj(i -> new Task("Task " + i, "Description " + i, TaskStatus.NEW))
-                        .forEach(manager::createNewTask);
-                break;
-            case "epic":
-                IntStream.range(0, amount)
-                        .mapToObj(i -> new Epic("Epic " + i, "Description " + i))
-                        .forEach(manager::createNewEpic);
-                break;
-        }
-    }
 
-    void genSubTasks(int amount, int epicId) {
+    private void genSubTasks(int amount, int epicId) {
         IntStream.range(0, amount)
                 .mapToObj(i -> new SubTask("SubTask " + i, "Description " + i, TaskStatus.NEW, manager.getEpicById(epicId)))
                 .forEach(manager::createNewSubTask);
     }
 
-    static Stream<TaskStatus[]> provideSubTaskStatusCombinations() {
+    private static Stream<TaskStatus[]> provideSubTaskStatusCombinations() {
         return Stream.of(
                 new TaskStatus[]{TaskStatus.NEW, TaskStatus.NEW},
                 new TaskStatus[]{TaskStatus.IN_PROGRESS, TaskStatus.IN_PROGRESS},
@@ -64,13 +50,13 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void getTaskShouldAddTaskToHistory() {
-        genTasks(1, "task");
+        genTasks(manager, 1, "task");
         assertEquals(manager.getTaskById(0), manager.getHistory().get(manager.getHistory().size() - 1), "Task was not added to history");
     }
 
     @Test
     void removeTaskByIdShouldRemoveTaskFromManager() {
-        genTasks(1, "task");
+        genTasks(manager, 1, "task");
         manager.removeTaskById(manager.getTaskById(0).getId());
         assertNull(manager.getTaskById(0), "Task was not removed");
 
@@ -111,7 +97,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void removeEpicByIdShouldRemoveEpicAndSubTasks() {
-        genTasks(1, "Epic");
+        genTasks(manager, 1, "Epic");
         genSubTasks(1, 0);
         manager.removeEpicById(manager.getEpicById(0).getId());
         assertNull(manager.getSubTaskById(1));
@@ -119,7 +105,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void removeSubTaskShouldRemoveSubTaskFromEpic() {
-        genTasks(1, "Epic");
+        genTasks(manager, 1, "Epic");
         genSubTasks(2, 0);
         manager.removeSubTaskById(1);
         assertFalse(manager.getEpicById(0).getSubTaskIds().contains(1));
@@ -127,7 +113,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void updateTaskDescriptionShouldUpdateTaskDescription() {
-        genTasks(1, "task");
+        genTasks(manager, 1, "task");
         String newDescription = "New Description";
         manager.getTaskById(0).setDescription(newDescription);
         assertEquals(newDescription, manager.getTaskById(0).getDescription());
@@ -142,7 +128,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void removeAllSubTasksShouldRemoveAllSubTasksFromManager() {
-        genTasks(1, "Epic");
+        genTasks(manager, 1, "Epic");
         genSubTasks(2, 0);
         manager.removeAllSubTasks();
         assertEquals(0, manager.getAllSubTasks().size(), "The subtasks have not been deleted");
@@ -151,7 +137,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void updateTaskShouldUpdateTaskCorrectly() {
-        genTasks(2, "task");
+        genTasks(manager, 2, "task");
         Task updatedTask = manager.getTaskById(1);
         manager.removeTaskById(1);
         updatedTask.setId(0);
@@ -161,7 +147,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void updateSubTaskShouldUpdateSubTaskCorrectly() {
-        genTasks(1, "epic");
+        genTasks(manager, 1, "epic");
         genSubTasks(2, 0);
         SubTask updatedSubTask = manager.getSubTaskById(2);
         manager.removeSubTaskById(2);
@@ -172,7 +158,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void updateEpicShouldUpdateEpicCorrectly() {
-        genTasks(2, "epic");
+        genTasks(manager, 2, "epic");
         Epic updatedEpic = manager.getEpicById(1);
         manager.removeEpicById(1);
         updatedEpic.setId(0);
@@ -183,7 +169,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     void getPrioritizedTasksShouldIncludeEpicsWithStartTime() {
         int num = 1;
-        genTasks(num, "Epic");
+        genTasks(manager, num, "Epic");
         genSubTasks(1, 0);
         manager.getSubTaskById(1).setDuration(Duration.ofMinutes(15));
         manager.getSubTaskById(1).setStartTime(LocalDateTime.parse("17.03.2024 09:00", TimeFormatter.TIMEFORMATTER));
@@ -195,7 +181,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     void removeAllTasksShouldRemoveAllTasks() {
         int num = 3;
-        genTasks(num, "Task");
+        genTasks(manager, num, "Task");
         assertEquals(num, manager.getAllTasks().size());
         manager.removeAllTasks();
         assertEquals(0, manager.getAllTasks().size());
@@ -205,7 +191,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     @Test
     void removeAllEpicsShouldRemoveAllEpicsAndSubTasks() {
 
-        genTasks(2, "epic");
+        genTasks(manager, 2, "epic");
         genSubTasks(1, 0);
         genSubTasks(2, 0);
 
@@ -216,7 +202,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void getSubTasksOfEpicShouldReturnSubTasksBelongingToEpic() {
-        genTasks(1, "epic");
+        genTasks(manager, 1, "epic");
         genSubTasks(3, 0);
         List<SubTask> subTasks = manager.getSubTasksOfEpic(manager.getEpicById(0));
         assertEquals(3, subTasks.size());
@@ -227,7 +213,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
 
     @Test
     void getPrioritizedTasksShouldReturnTasksInStartTimeOrder() {
-        genTasks(3, "task");
+        genTasks(manager, 3, "task");
         String startTime = "17.03.2024 10:";
         int dec = 59;
         for (Map.Entry<Integer, Task> entry : manager.getAllTasks().entrySet()) {
