@@ -6,17 +6,16 @@ import sprint.tasks.Task;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface TaskManager {
-    /*
-     a. ��������� ������ ���� �����.
-     */
+    Set<Task> getPrioritizedTasks();
+
     Map<Integer, Task> getAllTasks();
 
     Map<Integer, SubTask> getAllSubTasks();
 
     Map<Integer, Epic> getAllEpics();
-
 
     void removeAllTasks();
 
@@ -30,20 +29,17 @@ public interface TaskManager {
 
     SubTask getSubTaskById(int id);
 
-
     void createNewTask(Task task);
 
     void createNewSubTask(SubTask subTask);
 
     void createNewEpic(Epic epic);
 
-
     void updateTask(Task updatedTask);
 
     void updateSubTask(SubTask updatedSubTask);
 
     void updateEpic(Epic updatedEpic);
-
 
     void removeTaskById(int id);
 
