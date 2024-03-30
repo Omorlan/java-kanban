@@ -25,6 +25,7 @@ public class SubTask extends Task {
         this.type = TaskType.SUBTASK;
         this.duration = Duration.ofMinutes(duration);
         this.startTime = LocalDateTime.parse(startTime, TimeFormatter.TIMEFORMATTER);
+        this.endTime = this.startTime.plusMinutes(duration);
     }
 
     public SubTask(int id, String name, String description, TaskStatus status, Epic epic, long duration, String startTime) {
@@ -34,6 +35,7 @@ public class SubTask extends Task {
         this.type = TaskType.SUBTASK;
         this.duration = Duration.ofMinutes(duration);
         this.startTime = LocalDateTime.parse(startTime, TimeFormatter.TIMEFORMATTER);
+        this.endTime = this.startTime.plusMinutes(duration);
     }
 
     public Epic getEpic() {

@@ -50,5 +50,5 @@ public interface TaskManager {
     List<SubTask> getSubTasksOfEpic(Epic epic);
 
     List<Task> getHistory();
-
+    boolean isCrossing(Task task);
 }

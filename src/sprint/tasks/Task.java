@@ -40,6 +40,7 @@ public class Task {
         this.type = TaskType.TASK;
         this.duration = Duration.ofMinutes(duration);
         this.startTime = LocalDateTime.parse(startTime, TimeFormatter.TIMEFORMATTER);
+        this.endTime = this.startTime.plusMinutes(duration);
     }
 
     //Constructor for update methods
@@ -51,6 +52,7 @@ public class Task {
         this.type = TaskType.TASK;
         this.duration = Duration.ofMinutes(duration);
         this.startTime = LocalDateTime.parse(startTime, TimeFormatter.TIMEFORMATTER);
+        this.endTime = this.startTime.plusMinutes(duration);
     }
 
     public String toStringFromFile() {

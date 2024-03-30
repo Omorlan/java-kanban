@@ -1,2 +1,5 @@
 id,type,name,status,description,epic,duration(min),start_time,end_time
+0,EPIC,Epic name,IN_PROGRESS,Epic Description,N/A,15,17.03.2024 03:00,17.03.2024 03:15
+1,SUBTASK,SubTask Name,NEW,SubTask Description,0,15,17.03.2024 03:00,17.03.2024 03:15
 
+0
