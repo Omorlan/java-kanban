@@ -172,7 +172,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         genTasks(manager, num, "Epic");
         genSubTasks(1, 0);
         manager.getSubTaskById(1).setDuration(Duration.ofMinutes(15));
-        manager.getSubTaskById(1).setStartTime(LocalDateTime.parse("17.03.2024 09:00", TimeFormatter.TIMEFORMATTER));
+        manager.getSubTaskById(1).setStartTime(LocalDateTime.parse("17.03.2024 09:00", TimeFormatter.TIME_FORMATTER));
         manager.updateEpic(manager.getEpicById(0));
         Set<Task> prioritizedTasks = manager.getPrioritizedTasks();
         assertTrue(prioritizedTasks.contains(manager.getEpicById(0)));
@@ -219,7 +219,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         for (Map.Entry<Integer, Task> entry : manager.getAllTasks().entrySet()) {
             StringBuilder startTimeSb = new StringBuilder(startTime);
             entry.getValue().setDuration(Duration.ofMinutes(10));
-            entry.getValue().setStartTime(LocalDateTime.parse(startTimeSb.append(dec).toString(), TimeFormatter.TIMEFORMATTER));
+            entry.getValue().setStartTime(LocalDateTime.parse(startTimeSb.append(dec).toString(), TimeFormatter.TIME_FORMATTER));
             dec -= 15;
         }
 

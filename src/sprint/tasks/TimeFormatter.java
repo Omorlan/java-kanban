@@ -7,5 +7,5 @@ public class TimeFormatter {
         throw new IllegalStateException("Utility class");
     }
 
-    public static final DateTimeFormatter TIMEFORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyy HH:mm");
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyy HH:mm");
 }

@@ -10,6 +10,8 @@ import java.lang.reflect.Type;
 import java.util.regex.Pattern;
 
 public class SubtasksHandler extends Handler {
+    private static final String SUBTASKS = "/subtasks/";
+
     private final Type typeSubtask = new TypeToken<SubTask>() {
     }.getType();
 
@@ -26,7 +28,7 @@ public class SubtasksHandler extends Handler {
             switch (exchange.getRequestMethod()) {
                 case "GET": {
                     if (Pattern.matches("^/subtasks/\\d+$", path)) {
-                        String pathId = path.replaceFirst("/subtasks/", "");
+                        String pathId = path.replaceFirst(SUBTASKS, "");
                         int id;
                         try {
                             id = parsePathId(pathId);
@@ -39,7 +41,6 @@ public class SubtasksHandler extends Handler {
                         if (response != null) {
                             sendResponse(exchange, response);
                         } else {
-                            System.out.println("Subtask with id = " + pathId + "not existing");
                             exchange.sendResponseHeaders(404, 0);
                         }
 
@@ -54,7 +55,7 @@ public class SubtasksHandler extends Handler {
 
                 case "DELETE": {
                     if (Pattern.matches("^/subtasks/\\d+$", path)) {
-                        String pathId = path.replaceFirst("/subtasks/", "");
+                        String pathId = path.replaceFirst(SUBTASKS, "");
                         int id;
                         try {
                             id = parsePathId(pathId);
@@ -64,9 +65,7 @@ public class SubtasksHandler extends Handler {
                         }
 
                         manager.removeSubTaskById(id);
-                        System.out.println("Delete subtask id = " + id);
                         exchange.sendResponseHeaders(200, 0);
-                        exchange.close();
 
                     } else {
                         exchange.sendResponseHeaders(405, 0);
@@ -89,7 +88,7 @@ public class SubtasksHandler extends Handler {
                             exchange.sendResponseHeaders(500, 0);
                         }
                     } else if (Pattern.matches("^/subtasks/\\d+$", path)) {
-                        String pathId = path.replaceFirst("/subtasks/", "");
+                        String pathId = path.replaceFirst(SUBTASKS, "");
                         int id;
                         try {
                             id = parsePathId(pathId);

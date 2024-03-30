@@ -18,7 +18,7 @@ public abstract class Handler implements HttpHandler {
     protected final TaskManager manager;
     protected final Gson gson;
 
-    public Handler(TaskManager manager) {
+    protected Handler(TaskManager manager) {
         this.manager = manager;
         gson = Managers.getGson();
     }

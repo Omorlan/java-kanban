@@ -72,8 +72,8 @@ public class Epic extends Task {
     @Override
     public String toStringFromFile() {
         String durationString = (epicDuration != null) ? epicDuration.toMinutes() + "" : "N/A";
-        String startTimeString = (epicStartTime != null) ? epicStartTime.format(TimeFormatter.TIMEFORMATTER) : "N/A";
-        String endTimeString = (epicEndTime != null) ? epicEndTime.format(TimeFormatter.TIMEFORMATTER) : "N/A";
+        String startTimeString = (epicStartTime != null) ? epicStartTime.format(TimeFormatter.TIME_FORMATTER) : "N/A";
+        String endTimeString = (epicEndTime != null) ? epicEndTime.format(TimeFormatter.TIME_FORMATTER) : "N/A";
         return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",
                 id, type, name, status, description, "N/A", durationString, startTimeString, endTimeString);
     }
@@ -81,8 +81,8 @@ public class Epic extends Task {
     @Override
     public String toString() {
         String durationString = (epicDuration != null) ? epicDuration.toMinutes() + "" : "N/A";
-        String startTimeString = (epicStartTime != null) ? epicStartTime.format(TimeFormatter.TIMEFORMATTER) : "N/A";
-        String endTimeString = (epicEndTime != null) ? epicEndTime.format(TimeFormatter.TIMEFORMATTER) : "N/A";
+        String startTimeString = (epicStartTime != null) ? epicStartTime.format(TimeFormatter.TIME_FORMATTER) : "N/A";
+        String endTimeString = (epicEndTime != null) ? epicEndTime.format(TimeFormatter.TIME_FORMATTER) : "N/A";
         return "EPIC{" +
                 "id=" + id +
                 ", Name='" + name + '\'' +

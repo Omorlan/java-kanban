@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 import java.util.regex.Pattern;
 
 public class TasksHandler extends Handler {
-
+    private static final String TASKS = "/tasks/";
     private final Type typeTask = new TypeToken<Task>() {
     }.getType();
 
@@ -27,7 +27,7 @@ public class TasksHandler extends Handler {
             switch (exchange.getRequestMethod()) {
                 case "GET": {
                     if (Pattern.matches("^/tasks/\\d+$", path)) {
-                        String pathId = path.replaceFirst("/tasks/", "");
+                        String pathId = path.replaceFirst(TASKS, "");
                         int id;
                         try {
                             id = parsePathId(pathId);
@@ -39,7 +39,6 @@ public class TasksHandler extends Handler {
                         if (response != null) {
                             sendResponse(exchange, response);
                         } else {
-                            System.out.println("Task with id = " + pathId + " does not exist");
                             exchange.sendResponseHeaders(404, 0);
                         }
                     } else if (Pattern.matches("^/tasks$", path)) {
@@ -53,7 +52,7 @@ public class TasksHandler extends Handler {
 
                 case "DELETE": {
                     if (Pattern.matches("^/tasks/\\d+$", path)) {
-                        String pathId = path.replaceFirst("/tasks/", "");
+                        String pathId = path.replaceFirst(TASKS, "");
                         int id;
                         try {
                             id = parsePathId(pathId);
@@ -62,9 +61,7 @@ public class TasksHandler extends Handler {
                             break;
                         }
                         manager.removeTaskById(id);
-                        System.out.println("Task with id = " + id + " deleted");
                         exchange.sendResponseHeaders(200, 0);
-                        exchange.close();
 
                     } else {
                         exchange.sendResponseHeaders(405, 0);
@@ -83,16 +80,14 @@ public class TasksHandler extends Handler {
                                 manager.createNewTask(task);
                                 response = gson.toJson(task);
                                 sendResponse(exchange, response);
-                                System.out.println("Task was created");
                             } else {
-                                System.out.println("crosed");
                                 exchange.sendResponseHeaders(406, 0);
                             }
                         } else {
                             exchange.sendResponseHeaders(500, 0);
                         }
                     } else if (Pattern.matches("^/tasks/\\d+$", path)) {
-                        String pathId = path.replaceFirst("/tasks/", "");
+                        String pathId = path.replaceFirst(TASKS, "");
                         int id;
                         try {
                             id = parsePathId(pathId);
