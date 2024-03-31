@@ -2,6 +2,7 @@ package server.handler;
 
 import com.google.gson.reflect.TypeToken;
 import com.sun.net.httpserver.HttpExchange;
+import resources.HttpStatusCode;
 import server.handler.exeption.IllegalIdExeption;
 import sprint.managers.taskmanager.TaskManager;
 import sprint.tasks.Epic;
@@ -34,11 +35,11 @@ public class EpicsHandler extends Handler {
                     handlePostRequest(exchange, path);
                     break;
                 default:
-                    exchange.sendResponseHeaders(405, 0);
+                    exchange.sendResponseHeaders(HttpStatusCode.METHOD_NOT_ALLOWED.getCode(), 0);
                     break;
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            System.out.print(exception.getMessage());
         }
     }
 
@@ -50,7 +51,7 @@ public class EpicsHandler extends Handler {
             if (response != null) {
                 sendResponse(exchange, response);
             } else {
-                exchange.sendResponseHeaders(404, 0);
+                exchange.sendResponseHeaders(HttpStatusCode.NOT_FOUND.getCode(), 0);
             }
         } else if (Pattern.matches("^/epics$", path)) {
             String response = gson.toJson(manager.getAllEpics().values().stream().toList());
@@ -62,10 +63,10 @@ public class EpicsHandler extends Handler {
             if (response != null) {
                 sendResponse(exchange, response);
             } else {
-                exchange.sendResponseHeaders(404, 0);
+                exchange.sendResponseHeaders(HttpStatusCode.NOT_FOUND.getCode(), 0);
             }
         } else {
-            exchange.sendResponseHeaders(500, 0);
+            exchange.sendResponseHeaders(HttpStatusCode.INTERNAL_SERVER_ERROR.getCode(), 0);
         }
     }
 
@@ -74,10 +75,10 @@ public class EpicsHandler extends Handler {
             String pathId = path.replaceFirst(EPICS, "");
             int id = parsePathId(pathId);
             manager.removeEpicById(id);
-            exchange.sendResponseHeaders(200, 0);
+            exchange.sendResponseHeaders(HttpStatusCode.OK.getCode(), 0);
             exchange.close();
         } else {
-            exchange.sendResponseHeaders(405, 0);
+            exchange.sendResponseHeaders(HttpStatusCode.METHOD_NOT_ALLOWED.getCode(), 0);
         }
     }
 
@@ -90,10 +91,10 @@ public class EpicsHandler extends Handler {
                 String response = gson.toJson(epic);
                 sendResponse(exchange, response);
             } else {
-                exchange.sendResponseHeaders(500, 0);
+                exchange.sendResponseHeaders(HttpStatusCode.INTERNAL_SERVER_ERROR.getCode(), 0);
             }
         } else {
-            exchange.sendResponseHeaders(500, 0);
+            exchange.sendResponseHeaders(HttpStatusCode.INTERNAL_SERVER_ERROR.getCode(), 0);
         }
     }
 }

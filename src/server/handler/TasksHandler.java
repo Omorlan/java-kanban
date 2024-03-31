@@ -2,6 +2,7 @@ package server.handler;
 
 import com.google.gson.reflect.TypeToken;
 import com.sun.net.httpserver.HttpExchange;
+import resources.HttpStatusCode;
 import server.handler.exeption.IllegalIdExeption;
 import sprint.managers.taskmanager.TaskManager;
 import sprint.tasks.Task;
@@ -32,20 +33,20 @@ public class TasksHandler extends Handler {
                         try {
                             id = parsePathId(pathId);
                         } catch (NumberFormatException | IllegalIdExeption e) {
-                            exchange.sendResponseHeaders(404, 0);
+                            exchange.sendResponseHeaders(HttpStatusCode.NOT_FOUND.getCode(), 0);
                             break;
                         }
                         response = gson.toJson(manager.getTaskById(id));
                         if (response != null) {
                             sendResponse(exchange, response);
                         } else {
-                            exchange.sendResponseHeaders(404, 0);
+                            exchange.sendResponseHeaders(HttpStatusCode.NOT_FOUND.getCode(), 0);
                         }
                     } else if (Pattern.matches("^/tasks$", path)) {
                         response = gson.toJson(manager.getAllTasks().values().stream().toList());
                         sendResponse(exchange, response);
                     } else {
-                        exchange.sendResponseHeaders(500, 0);
+                        exchange.sendResponseHeaders(HttpStatusCode.INTERNAL_SERVER_ERROR.getCode(), 0);
                     }
                     break;
                 }
@@ -57,14 +58,14 @@ public class TasksHandler extends Handler {
                         try {
                             id = parsePathId(pathId);
                         } catch (NumberFormatException | IllegalIdExeption e) {
-                            exchange.sendResponseHeaders(404, 0);
+                            exchange.sendResponseHeaders(HttpStatusCode.NOT_FOUND.getCode(), 0);
                             break;
                         }
                         manager.removeTaskById(id);
-                        exchange.sendResponseHeaders(200, 0);
+                        exchange.sendResponseHeaders(HttpStatusCode.OK.getCode(), 0);
 
                     } else {
-                        exchange.sendResponseHeaders(405, 0);
+                        exchange.sendResponseHeaders(HttpStatusCode.METHOD_NOT_ALLOWED.getCode(), 0);
                     }
                     break;
                 }
@@ -81,38 +82,29 @@ public class TasksHandler extends Handler {
                                 response = gson.toJson(task);
                                 sendResponse(exchange, response);
                             } else {
-                                exchange.sendResponseHeaders(406, 0);
+                                exchange.sendResponseHeaders(HttpStatusCode.NOT_ACCEPTABLE.getCode(), 0);
                             }
                         } else {
-                            exchange.sendResponseHeaders(500, 0);
+                            exchange.sendResponseHeaders(HttpStatusCode.INTERNAL_SERVER_ERROR.getCode(), 0);
                         }
                     } else if (Pattern.matches("^/tasks/\\d+$", path)) {
-                        String pathId = path.replaceFirst(TASKS, "");
-                        int id;
-                        try {
-                            id = parsePathId(pathId);
-                        } catch (NumberFormatException | IllegalIdExeption e) {
-                            exchange.sendResponseHeaders(404, 0);
-                            break;
-                        }
                         String body = readResponse(exchange);
-
                         if (body != null) {
                             task = gson.fromJson(body, typeTask);
                             manager.updateTask(task);
                             response = gson.toJson(task);
                             sendResponse(exchange, response);
                         } else {
-                            exchange.sendResponseHeaders(500, 0);
+                            exchange.sendResponseHeaders(HttpStatusCode.NOT_FOUND.getCode(), 0);
                         }
 
                     } else {
-                        exchange.sendResponseHeaders(500, 0);
+                        exchange.sendResponseHeaders(HttpStatusCode.INTERNAL_SERVER_ERROR.getCode(), 0);
                     }
                 }
                 break;
                 default: {
-                    exchange.sendResponseHeaders(405, 0);
+                    exchange.sendResponseHeaders(HttpStatusCode.METHOD_NOT_ALLOWED.getCode(), 0);
                     break;
                 }
 

@@ -4,13 +4,14 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+import resources.UtilConstant;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
-    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyy HH:mm");
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(UtilConstant.DATE_TIME_FORMAT);
 
     @Override
     public void write(final JsonWriter jsonWriter, final LocalDateTime localDateTime) throws IOException {

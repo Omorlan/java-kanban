@@ -1,5 +1,7 @@
 package sprint.tasks;
 
+import resources.UtilConstant;
+
 import java.time.format.DateTimeFormatter;
 
 public class TimeFormatter {
@@ -7,5 +9,5 @@ public class TimeFormatter {
         throw new IllegalStateException("Utility class");
     }
 
-    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyy HH:mm");
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(UtilConstant.DATE_TIME_FORMAT);
 }
