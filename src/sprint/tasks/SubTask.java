@@ -24,7 +24,8 @@ public class SubTask extends Task {
         this.epic = epic;
         this.type = TaskType.SUBTASK;
         this.duration = Duration.ofMinutes(duration);
-        this.startTime = LocalDateTime.parse(startTime, TimeFormatter.TIMEFORMATTER);
+        this.startTime = LocalDateTime.parse(startTime, TimeFormatter.TIME_FORMATTER);
+        this.endTime = this.startTime.plusMinutes(duration);
     }
 
     public SubTask(int id, String name, String description, TaskStatus status, Epic epic, long duration, String startTime) {
@@ -33,7 +34,8 @@ public class SubTask extends Task {
         this.epic = epic;
         this.type = TaskType.SUBTASK;
         this.duration = Duration.ofMinutes(duration);
-        this.startTime = LocalDateTime.parse(startTime, TimeFormatter.TIMEFORMATTER);
+        this.startTime = LocalDateTime.parse(startTime, TimeFormatter.TIME_FORMATTER);
+        this.endTime = this.startTime.plusMinutes(duration);
     }
 
     public Epic getEpic() {
@@ -47,8 +49,8 @@ public class SubTask extends Task {
     @Override
     public String toString() {
         String durationString = (duration != null) ? duration.toMinutes() + "" : "N/A";
-        String startTimeString = (startTime != null) ? startTime.format(TimeFormatter.TIMEFORMATTER) : "N/A";
-        String endTimeString = (getEndTime() != null) ? getEndTime().format(TimeFormatter.TIMEFORMATTER) : "N/A";
+        String startTimeString = (startTime != null) ? startTime.format(TimeFormatter.TIME_FORMATTER) : "N/A";
+        String endTimeString = (getEndTime() != null) ? getEndTime().format(TimeFormatter.TIME_FORMATTER) : "N/A";
         return "Subtask{" +
                 " id=" + id +
                 ", Name='" + name + '\'' +
@@ -64,8 +66,8 @@ public class SubTask extends Task {
     @Override
     public String toStringFromFile() {
         String durationString = (duration != null) ? duration.toMinutes() + "" : "N/A";
-        String startTimeString = (startTime != null) ? startTime.format(TimeFormatter.TIMEFORMATTER) : "N/A";
-        String endTimeString = (getEndTime() != null) ? getEndTime().format(TimeFormatter.TIMEFORMATTER) : "N/A";
+        String startTimeString = (startTime != null) ? startTime.format(TimeFormatter.TIME_FORMATTER) : "N/A";
+        String endTimeString = (getEndTime() != null) ? getEndTime().format(TimeFormatter.TIME_FORMATTER) : "N/A";
         return String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s",
                 id, type, name, status, description, epic.getId(), durationString, startTimeString, endTimeString);
     }
